@@ -1,5 +1,5 @@
 my_string = 'Что я делал прошлым летом'
-print(len(my_string))
+print('String length: ', len(my_string))
 print(my_string.upper())
 print(my_string.lower())
 print(my_string.replace(' ', ''))
