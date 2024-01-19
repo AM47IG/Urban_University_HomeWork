@@ -1,6 +1,6 @@
 immutable_var = (True, 'Cat', 156, 2)  # Создал кортеж
-print('Immutable tuple: ', immutable_var)  # Вывел котреж
-# immutable_var[1] = 'Dog'  Данная операция вызовет ошибку,так как кортеж является неизменяемым объектом
+print('Immutable tuple: ', immutable_var)  # Вывел кортеж
+# immutable_var[1] = 'Dog'  Данная операция вызовет ошибку, так как кортеж является неизменяемым объектом
 mutable_list = [True, 'Bird', 852, -56]  # Создал список
 print('Mutable list: ', mutable_list)  # Вывел список
 mutable_list[0] = False  # Изменил элемент в списке
