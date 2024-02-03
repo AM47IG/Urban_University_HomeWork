@@ -15,5 +15,5 @@ def factorial(n):
 
 
 test(1, 594, 56.41, 'Hello world', True, name='Alexander', city='Irkutsk')
-
-print(factorial(19))
+n = int(input('Введите число для вычисления факториала: '))
+print(f'Факториал числа {n}:', factorial(n))
