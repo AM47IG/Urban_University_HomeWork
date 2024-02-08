@@ -1,15 +1,24 @@
-# '''представим что у нас есть три столба и три блока (в будущем это количество соответственно должно иметь
-# возможность масштабироваться). Столбы - массивы, блоки - для начала кортеж из названия и площади. Задача
-# переместить блоки между массивами с проверками, можно ли положить данный кортеж в данный массив на основе
-# площади объекта. Если площадь последнего элемента массива меньше, чем площадь перемещаемого объекта - класть
-# блок в данный массив нельзя'''
-def dorisovka_s0(lvl):
-    while len(lvl) < 3:
-        lvl.append(s0)
+def dorisovka_s0(s1, s2, s3):
+    sd1 = list(s1)
+    sd2 = list(s2)
+    sd3 = list(s3)
+    while len(sd1) < 3:
+        sd1.append(s0)
+    while len(sd2) < 3:
+        sd2.append(s0)
+    while len(sd3) < 3:
+        sd3.append(s0)
+    sp3 = (sd1[0], sd2[0], sd3[0])
+    sp2 = (sd1[1], sd2[1], sd3[1])
+    sp1 = (sd1[2], sd2[2], sd3[2])
+    print(sp1, sp2, sp3, sep='\n')
+    
 
 
 def move(s_out, s_in):
-    if not s_in:
+    if not s_out:
+    	print('Нечего перекладывать!')
+    elif not s_in:
         print('Переклали')
         b = s_out[-1]
         s_out.remove(b)
@@ -26,29 +35,26 @@ def move(s_out, s_in):
 def number_is_s_out():
     n = ''
     while not (n == '1' or n == '2' or n == '3'):
-        n = input('Откуда берем блок? ')  # Здесь остановился
-
+        n = input('Откуда берем блок? ')
     if n == '1':
         n = s1
     elif n == '2':
         n = s2
     elif n == '3':
         n = s3
-
     return n
 
 
 def number_is_s_in():
-    n = input('Куда кладем? ')
+    n = ''
+    while not (n == '1' or n == '2' or n == '3'):
+        n = input('Куда кладём? ')
     if n == '1':
         n = s1
     elif n == '2':
         n = s2
     elif n == '3':
         n = s3
-    else:
-        print('Только от одного до трех!!!')
-        number_is_s_in()
     return n
 
 
@@ -60,14 +66,11 @@ b3 = '_____'
 s1 = [b3, b2, b1]
 s2 = []
 s3 = []
-
+dorisovka_s0(s1, s2, s3)
 while not s3 == [b3, b2, b1]:
     s_out = number_is_s_out()
     s_in = number_is_s_in()
     move(s_out, s_in)
-    print(s1, s2, s3, sep='\n')
+    dorisovka_s0(s1, s2, s3)
 
-dorisovka_s0(s1)
-dorisovka_s0(s2)
-dorisovka_s0(s3)
-print('ВЫ ВЫИГРАЛИ', s1, s2, s3, sep='\n')
+print('ВЫ ВЫИГРАЛИ')
