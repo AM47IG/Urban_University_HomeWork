@@ -2,16 +2,30 @@ def dorisovka_s0(s1, s2, s3):
     sd1 = list(s1)
     sd2 = list(s2)
     sd3 = list(s3)
-    while len(sd1) < 3:
+    while len(sd1) < lvl:
         sd1.append(s0)
-    while len(sd2) < 3:
+    while len(sd2) < lvl:
         sd2.append(s0)
-    while len(sd3) < 3:
+    while len(sd3) < lvl:
         sd3.append(s0)
-    sp3 = (sd1[0], sd2[0], sd3[0])
+    if lvl >= 7:
+    	sp7 = (sd1[6], sd2[6], sd3[6])
+    	print(*sp7)
+    if lvl >= 6:
+    	sp6 = (sd1[5], sd2[5], sd3[5])
+    	print(*sp6)
+    if lvl >= 5:
+    	sp5 = (sd1[4], sd2[4], sd3[4])
+    	print(*sp5)
+    if lvl >= 4:
+    	sp4 = (sd1[3], sd2[3], sd3[3])
+    	print(*sp4)
+    sp3 = (sd1[2], sd2[2], sd3[2])
     sp2 = (sd1[1], sd2[1], sd3[1])
-    sp1 = (sd1[2], sd2[2], sd3[2])
-    print(sp1, sp2, sp3, sep='\n')
+    sp1 = (sd1[0], sd2[0], sd3[0])
+    print(*sp3)
+    print(*sp2)
+    print(*sp1)
     
 
 
@@ -57,20 +71,32 @@ def number_is_s_in():
         n = s3
     return n
 
+lvl = 0
+while not (3 <= lvl <= 7):
+	lvl = int(input('Введите сложность от 3 до 7: '))
+s0 = (' '*(lvl-1))+'|'*1+(' '*(lvl-1))
+b1 = (' '*(lvl-1))+'_'*1+(' '*(lvl-1))
+b2 = (' '*(lvl-2))+'_'*3+(' '*(lvl-2))
+b3 = (' '*(lvl-3))+'_'*5+(' '*(lvl-3))
+b4 = (' '*(lvl-4))+'_'*7+(' '*(lvl-4))
+b5 = (' '*(lvl-5))+'_'*9+(' '*(lvl-5))
+b6 = (' '*(lvl-6))+'_'*11+(' '*(lvl-6))
+b7 = (' '*(lvl-7))+'_'*13+(' '*(lvl-7))
 
-s0 = '  |  '
-b1 = '  _  '
-b2 = ' ___ '
-b3 = '_____'
-
-s1 = [b3, b2, b1]
+lvl_b = [b7, b6, b5, b4, b3, b2, b1]
+win = []
+s1 = []
 s2 = []
 s3 = []
+s1 += lvl_b[-lvl:]
+win += lvl_b[-lvl]
+
 dorisovka_s0(s1, s2, s3)
-while not s3 == [b3, b2, b1]:
+while not s3 == win:
     s_out = number_is_s_out()
     s_in = number_is_s_in()
     move(s_out, s_in)
+    print()
     dorisovka_s0(s1, s2, s3)
 
 print('ВЫ ВЫИГРАЛИ')
