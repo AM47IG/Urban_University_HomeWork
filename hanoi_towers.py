@@ -26,9 +26,7 @@ def move(s_out, s_in):
 def number_is_s_out():
     n = ''
     while not (n == '1' or n == '2' or n == '3'):
-        n = input('Откуда берем блок? ')
-    else:
-        print('Только от одного до трех!!!')
+        n = input('Откуда берем блок? ')  # Здесь остановился
 
     if n == '1':
         n = s1
@@ -36,8 +34,6 @@ def number_is_s_out():
         n = s2
     elif n == '3':
         n = s3
-    else:
-        print('Только от одного до трех!!!')
 
     return n
 
