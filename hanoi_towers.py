@@ -26,7 +26,6 @@ def visual(s1, s2, s3):
     print(*sp3)
     print(*sp2)
     print(*sp1)
-    
 
 
 def move(s_out, s_in):
@@ -70,6 +69,7 @@ def number_is_s_in():
     elif n == 3:
         n = s3
     return n
+
 
 lvl = 0
 while not (3 <= lvl <= 7):
