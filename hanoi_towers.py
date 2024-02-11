@@ -46,34 +46,41 @@ def move(s_out, s_in):
 
 
 def number_is_s_out():
-    n = 0
-    while not (1 <= n <= 3):
-        n = int(input('Откуда берем блок? '))
-    if n == 1:
+    n = ''
+    while not (n == '1' or n == '2' or n == '3'):
+        n = input('Откуда берем блок? ')
+    if n == '1':
         n = s1
-    elif n == 2:
+    elif n == '2':
         n = s2
-    elif n == 3:
+    elif n == '3':
         n = s3
     return n
 
 
 def number_is_s_in():
-    n = 0
-    while not (1 <= n <= 3):
-        n = int(input('Куда кладём? '))
-    if n == 1:
+    n = ''
+    while not (n == '1' or n == '2' or n == '3'):
+        n = input('Куда кладём? ')
+    if n == '1':
         n = s1
-    elif n == 2:
+    elif n == '2':
         n = s2
-    elif n == 3:
+    elif n == '3':
         n = s3
     return n
 
 
 lvl = 0
-while not (3 <= lvl <= 7):
- lvl = int(input('Введите сложность от 3 до 7: '))
+while True:
+	try:
+		lvl = int(input('Введите сложность от 3 до 7: '))
+		if 3 <= lvl <= 7:
+			break
+		else:
+			continue
+	except ValueError:
+		print('Неправильный ввод. Попробуйте еще раз.')
 s0 = (' '*(lvl-1))+'|'*1+(' '*(lvl-1))
 b1 = (' '*(lvl-1))+'_'*1+(' '*(lvl-1))
 b2 = (' '*(lvl-2))+'_'*3+(' '*(lvl-2))
