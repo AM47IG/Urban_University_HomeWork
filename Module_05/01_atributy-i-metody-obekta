@@ -16,7 +16,7 @@ class House:
 	        if self.current_floor < need_a_floor:
 	            self.current_floor += 1
 	    print('Вы на этаже:', self.current_floor)
-
+            print()
 
 house_1 = House(int(input('Количество этажей:')))
 while True:
