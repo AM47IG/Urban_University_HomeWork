@@ -11,9 +11,9 @@ class Building:
 tolbukhina_29 = Building()
 lenina_13 = Building()
 kosmonavtov_55 = Building(9, 'brick')
-rosi_luxembourg_16 = Building(9, 'brick')
+rosy_luxembourg_16 = Building(9, 'brick')
 
-addresses = (tolbukhina_29, lenina_13, kosmonavtov_55, rosi_luxembourg_16)  # Список "соседних" зданий.
+addresses = (tolbukhina_29, lenina_13, kosmonavtov_55, rosy_luxembourg_16)  # Список "соседних" зданий.
 
 for i in range(len(addresses) - 1):  # Цикл для сравнения "соседних" зданий.
     if addresses[i] == addresses[i + 1]:
