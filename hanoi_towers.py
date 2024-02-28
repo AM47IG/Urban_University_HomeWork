@@ -61,7 +61,6 @@ while not 1 <= lvl <= 999:  # Выбор сложности игры (урове
         continue
     lvl = int(lvl)
 
-
 s1 = level(lvl)  # Стартовый столбец (левый)
 s2 = []
 s3 = []
@@ -78,6 +77,5 @@ while not s3 == win:  # Игровой цикл
     move(s_out, s_in)
     print(f'\nХод {count_of_step}')
     visual(s1, s2, s3)
-
 
 print('У ВАС ПОЛУЧИЛОСЬ!\nКоличество ходов:', count_of_step)
