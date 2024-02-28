@@ -14,27 +14,27 @@ def number_is_s(text):  # Функция для определения из ка
         return s3
 
 
-def move(s_out, s_in):  # Функция для переписывания блока из списка в список (перемещение блока)
-    if not s_out:
+def move(a, b):  # Функция для переписывания блока из списка в список (перемещение блока)
+    if not a:
         print('Нечего перемещать')
-    elif not s_in:
+    elif not b:
         print('Блок перемещён')
-        b = s_out[-1]
-        s_out.remove(b)
-        s_in.append(b)
-    elif s_in[-1] > s_out[-1]:
+        block = a[-1]
+        a.remove(block)
+        b.append(block)
+    elif b[-1] > a[-1]:
         print('Блок перемещён')
-        b = s_out[-1]
-        s_out.remove(b)
-        s_in.append(b)
+        block = a[-1]
+        a.remove(block)
+        b.append(block)
     else:
         print('Больший блок нельзя класть на меньший!')
 
 
-def visual(s1, s2, s3):  # Функция для отрисовки игры в консоли
-    sd1 = list(s1)  # Временные переменные для столбцов
-    sd2 = list(s2)
-    sd3 = list(s3)
+def visual(a, b, c):  # Функция для отрисовки игры в консоли
+    sd1 = list(a)  # Временные переменные для столбцов
+    sd2 = list(b)
+    sd3 = list(c)
     while len(sd1) < lvl:  # Дорисовка пустых столбцов
         sd1.append(s0)
     while len(sd2) < lvl:
