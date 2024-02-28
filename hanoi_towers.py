@@ -50,7 +50,7 @@ def level(lv):
     lvl_n = []
     for i in range(1, lv + 1):
         lvl_n.insert(0, (' ' * (lv - i)) + '_' * (i * 2 - 1) + (' ' * (lv - i)))
-    return lvl_n
+    return list(lvl_n)
 
 
 lvl = 0
@@ -62,7 +62,7 @@ while not 1 <= lvl <= 999:  # Выбор сложности игры (урове
     lvl = int(lvl)
 
 
-s1 = list(level(lvl))  # Стартовый столбец (левый)
+s1 = level(lvl)  # Стартовый столбец (левый)
 s2 = []
 s3 = []
 win = list(s1)  # Список для определения победы
