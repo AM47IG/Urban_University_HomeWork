@@ -73,10 +73,11 @@ visual(s1, s2, s3)
 count_of_step = 0  # Переменная счетчик ходов
 
 while not s3 == win:  # Игровой цикл
+    count_of_step += 1
     s_out, s_in = number_is_s('Откуда берем блок? '), number_is_s('Куда кладём? ')
     move(s_out, s_in)
-    print()
+    print(f'\nХод {count_of_step}')
     visual(s1, s2, s3)
-    count_of_step += 1
+
 
 print('У ВАС ПОЛУЧИЛОСЬ!\nКоличество ходов:', count_of_step)
