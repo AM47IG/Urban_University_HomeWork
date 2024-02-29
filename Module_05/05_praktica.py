@@ -61,7 +61,7 @@ class Man:
         self.fullness -= 10
 
 
-class House():
+class House:
 
     def __init__(self, name):
         self.food = 10
