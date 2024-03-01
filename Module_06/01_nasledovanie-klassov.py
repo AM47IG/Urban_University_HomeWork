@@ -5,7 +5,7 @@ class Car:
         return 250
 
     def __str__(self):
-        return 'Стоимость {} - {} и количество лошадинных сил {}'.format(
+        return 'Стоимость {} - {} и количество лошадиных сил {}'.format(
             self.__class__.__name__, self.price, self.horse_powers()
         )
 
