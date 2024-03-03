@@ -21,7 +21,7 @@ class Nissan(Car):
 class Kia(Car):
 
     def horse_powers(self):
-        return 115
+        return 315
 
 
 car = Car()
