@@ -22,7 +22,7 @@ class Car:
             self.price += 1_000_000
             self.horse_powers += 125
             print('Тачка на прокачку!!!')
-        elif self.cnt_turbo < 5:
+        else:
             print('Ваш автомобиль уже очень крут! Остановись!')
 
     def __str__(self):
