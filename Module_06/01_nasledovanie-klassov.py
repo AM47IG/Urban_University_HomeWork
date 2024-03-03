@@ -1,5 +1,7 @@
 class Car:
-    price = 1000000
+
+    def __init__(self, price=1_000_000):
+        self.price = price
 
     def horse_powers(self):
         return 250
@@ -11,22 +13,20 @@ class Car:
 
 
 class Nissan(Car):
-    price = 500000
 
     def horse_powers(self):
         return 120
 
 
 class Kia(Car):
-    price = 850000
 
     def horse_powers(self):
         return 115
 
 
 car = Car()
-note = Nissan()
-rio = Kia()
+note = Nissan(1_100_000)
+rio = Kia(2_000_000)
 
 print(car)
 print(note)
