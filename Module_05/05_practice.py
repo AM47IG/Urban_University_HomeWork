@@ -1,5 +1,6 @@
 from random import randint
-from colorama import Fore, Back, Style
+from colorama import init, Fore, Back, Style
+init(autoreset=True)
 
 
 class Man:
@@ -14,24 +15,24 @@ class Man:
 
     def eat(self):
         if self.house.food >= 10:
-            print(Fore.YELLOW + '{} поел'.format(self.name), Style.RESET_ALL)
+            print(Fore.YELLOW + '{} поел'.format(self.name))
             self.fullness += 10
             self.house.food -= 10
         else:
             print('{} нет еды'.format(self.name))
 
     def work(self):
-        print(Fore.RED + '{} сходил на работу'.format(self.name), Style.RESET_ALL)
+        print(Fore.RED + '{} сходил на работу'.format(self.name))
         self.house.money += 50
         self.fullness -= 10
 
     def watch_MTV(self):
-        print(Fore.GREEN + '{} смотрел MTV целый день'.format(self.name), Style.RESET_ALL)
+        print(Fore.GREEN + '{} смотрел MTV целый день'.format(self.name))
         self.fullness -= 10
 
     def shopping(self):
         if self.house.money >= 50:
-            print(Fore.MAGENTA + '{} сходил в магазин за едой'.format(self.name), Style.RESET_ALL)
+            print(Fore.MAGENTA + '{} сходил в магазин за едой'.format(self.name))
             self.house.money -= 50
             self.house.food += 50
         else:
@@ -57,7 +58,7 @@ class Man:
 
     def go_into_house(self, house):
         self.house = house
-        print(Fore.GREEN + '{} заехал в дом'.format(self.name), Style.RESET_ALL)
+        print(Fore.GREEN + '{} заехал в дом'.format(self.name))
         self.fullness -= 10
 
 
@@ -83,10 +84,10 @@ for citizen in citizens:
     citizen.go_into_house(my_sweet_home)
 
 for day in range(1, 366):
-    print('\n', Back.LIGHTBLACK_EX + Fore.BLUE + '============ День {} ============'.format(day), Style.RESET_ALL)
+    print('\n', Back.LIGHTBLACK_EX + Fore.BLUE + '============ День {} ============'.format(day))
     for citizen in citizens:
         citizen.act()
-    print(Fore.BLUE + '-------- в конце дня ------------', Style.RESET_ALL)
+    print(Fore.BLUE + '-------- в конце дня ------------')
     for citizen in citizens:
         print(citizen)
     print(my_sweet_home)
