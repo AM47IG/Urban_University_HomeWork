@@ -1,5 +1,4 @@
-from colorama import init, Fore, Style
-init()
+from colorama import Fore, Style
 
 
 class Road:
