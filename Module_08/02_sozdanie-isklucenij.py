@@ -11,7 +11,7 @@ class InvalidDataException(Exception):
 class ProcessingException(Exception):
 
     def __init__(self, input_data=None):
-        self.message = 'Тот кого нельзя упоминать'
+        self.message = 'Тот кого нельзя называть'
         self.input_data = input_data
 
     def __str__(self):
