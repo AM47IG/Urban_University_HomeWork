@@ -72,3 +72,10 @@ print(new_numm)
 #     print('Это не распечатать!' 12 'раз')
 # except SyntaxError:
 #     print('Здесь мы пишем что не так. Ошибка - {exc} - {exc.args}')
+
+# Но вот что нашел в интернете. Если честно не понимаю какие ошибки синтаксиса ловятся, а какие - нет.
+try:
+    print(eval('six times seven'))
+except SyntaxError as err:
+    print('Syntax error %s (%s-%s): %s' % (err.filename, err.lineno, err.offset, err.text))
+    print(err)
