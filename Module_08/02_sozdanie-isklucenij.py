@@ -29,6 +29,7 @@ def check_volan(text):
         raise ProcessingException(input_data=text)
 
 
+# to_divide(5, 45)  # Прекращает код с ошибкой
 list1 = [[90, 45], [90, 15], [15, 45]]
 for ls in list1:
     try:
@@ -39,6 +40,7 @@ for ls in list1:
         print('Поделили! Ответ:', res)
     finally:
         print('И чему мы научились?')
+
 
 try:
     harry_speak = 'Это Волан-де-Морт!'
