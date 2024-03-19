@@ -6,13 +6,20 @@ def string_to_int(s):  # добавить обработку ValueError
 
 
 def read_file(filename):  # добавить обработку FileNotFoundError, IOError
+    file = None
     try:
-        with open(filename, 'r') as file:
-            return file.read()
-    except FileNotFoundError:
-        return f'Файл {filename} не найден!'
-    except IOError as exp:
-        return f'Ошибка {exp}. Невозможно открыть файл {filename}'
+        file = open(filename, 'r')
+        s = file.readline()
+        return s
+    except FileNotFoundError as exc:
+        return f'Файл {filename} не найден! {exc.args}'
+    except IOError as exс:
+        return f'Ошибка {exс}. Невозможно открыть файл {filename}'
+    except Exception as exc:
+        return f'Произошла непредвиденная ошибка! {exc}'
+    finally:
+        if file is not None:
+            file.close()
 
 
 def divide_numbers(a, b):  # добавить обработку ZeroDivisionError, TypeError
@@ -26,25 +33,42 @@ def divide_numbers(a, b):  # добавить обработку ZeroDivisionErr
 
 def access_list_element(lst, index):  # добавить обработку IndexError, TypeError
     try:
-        return 10 / lst[index]
+        return lst[index]
     except IndexError:
         return f'Нет элемента под индексом {index} в списке {lst}'
     except TypeError:
-        return f'10 невозможно поделить на "{lst[index]}"!'
+        return f'Индекс должен быть целыми числом!'
 
 
-with open('probe.txt', 'w') as file:
-    file.write(input('Введи что-нибудь: '))
-
-n = read_file('probe.txt')
-print(n)
-
-n = string_to_int(n)
-print(n)
-
-list_for_divide = [5, n]
-divide = divide_numbers(*list_for_divide)
-print(divide)
+def assign_number(a):
+    try:
+        global numm
+        return numm
+    except NameError:
+        print('Переменной "numm" не существует!')
 
 
-print(access_list_element(list_for_divide, 1))
+print(string_to_int('r'))
+print(string_to_int('9'))
+
+print(read_file('probe.txt'))
+print(read_file(34))
+print(read_file(54.00))
+
+print(divide_numbers(10, 0))
+print(divide_numbers('10', 2))
+print(divide_numbers(10, 2))
+
+my_list = [5, 6]
+print(access_list_element(my_list, 2))
+print(access_list_element(my_list, '1'))
+print(access_list_element(my_list, 1))
+
+new_numm = assign_number(3)
+print(new_numm)
+
+# Исключения SyntaxError не ловятся
+# try:
+#     print('Это не распечатать!' 12 'раз')
+# except SyntaxError:
+#     print('Здесь мы пишем что не так. Ошибка - {exc} - {exc.args}')
