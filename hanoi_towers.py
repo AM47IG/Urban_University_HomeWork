@@ -12,10 +12,7 @@ def number_is_s(text):  # Функция для определения из ка
 def move(a, b):  # Функция для переписывания блока из списка в список (перемещение блока)
     if not a:
         print('Нечего перемещать')
-    elif not b:
-        b.append(a.pop())
-        print('Блок перемещён')
-    elif b[-1] > a[-1]:
+    elif not b or b[-1] > a[-1]:
         b.append(a.pop())
         print('Блок перемещён')
     else:
