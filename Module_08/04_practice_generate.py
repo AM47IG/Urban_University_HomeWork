@@ -11,7 +11,7 @@ def some_random(what_need):
         return ' '
 
 
-def generate_str_for_calc(x):  # x = Количество строк в файле
+def generate_str_for_calc(x):  # x = Количество строк
     for _ in range(x):
         list_for_str = []
         dice = randint(1, 25)  # От этой переменной зависит частота ошибок
