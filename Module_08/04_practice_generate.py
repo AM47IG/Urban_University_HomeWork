@@ -8,27 +8,27 @@ def some_random(what_need):
     elif what_need == 'op':
         return choice(list_for_operation)
     else:
-        return ' '
+        return ''
 
 
-def generate_str_for_calc(x):  # x = Количество строк
-    for _ in range(x):
-        list_for_str = []
-        dice = randint(1, 25)  # От этой переменной зависит частота ошибок
+def generate_str_for_calc(number_of_row=10_000, error_rate=25):  # Колличество строк и частота ошибок
+    for _ in range(number_of_row):
+        cur_str = ''
+        dice = randint(a=1, b=error_rate)
         if dice > 1:  # Правильные строки
-            list_for_str.append(some_random('int'))
-            list_for_str.append(some_random('op'))
-            list_for_str.append(some_random('int'))
+            cur_str += some_random('int') + ' '
+            cur_str += some_random('op') + ' '
+            cur_str += some_random('int')
         else:  # Ошибочные строки
             what_need = ['int', 'op', 'emp']
-            list_for_str.append(some_random(choice(what_need)))
-            list_for_str.append(some_random(choice(what_need)))
-            list_for_str.append(some_random(choice(what_need)))
-        yield ' '.join(list_for_str) + '\n'
+            cur_str += some_random(choice(what_need)) + ' '
+            cur_str += some_random(choice(what_need)) + ' '
+            cur_str += some_random(choice(what_need))
+        yield cur_str + '\n'
 
 
 with open('calc.txt', mode='w') as file:
-    for i in generate_str_for_calc(10_000):
-        file.write(i)
+    for gen_str in generate_str_for_calc():
+        file.write(gen_str)
 
 print('calc.txt создан')
