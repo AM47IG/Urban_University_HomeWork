@@ -22,6 +22,7 @@ def create_operation(operation):
         return division
 
 
+print('Задача 1: Фабрика функций')
 my_number_x = [1, 4, 7, 67, 101, 489, 1000, 0, -45, 24.31]
 my_number_y = [2, 3, 4, 5, 1, 0, 2.05, 100, 50, 25]
 my_func_mult = create_operation('multiplication')
@@ -30,9 +31,10 @@ result_mult = map(my_func_mult, my_number_x, my_number_y)
 result_div = map(my_func_div, my_number_x, filter(lambda y: y != 0, my_number_y))
 print('Умножение:', list(result_mult))
 print('Деление:', list(result_div))
-
+print()
 
 #  Лямбда функции с аналогом через def
+print('Задача 2: Лямбда')
 result_sq = map(lambda x: x ** 2, my_number_x)
 print('Квадратная степень (лямбда):', list(result_sq))
 
@@ -42,6 +44,7 @@ def square_def(x):
 
 
 print('Квадратная степень (деф):', list(map(square_def, my_number_y)))
+print()
 
 
 #  Вызываемый объект
@@ -55,6 +58,8 @@ class Rect:
         return self.a * self.b
 
 
+print('Задача 3: Вызываемые oбъекты')
 calculate_square = Rect(25, 4)
 result_sq2 = calculate_square()
+print('Стороны: 25 и 4')
 print('Посчитали площадь:', result_sq2)
