@@ -11,15 +11,15 @@ def some_random(what_need):
         return ''
 
 
-def generate_str_for_calc(number_of_row=10_000, error_rate=25):  # Колличество строк и частота ошибок
+def generate_str_for_calc(number_of_row=10_000, error_rate=10):  # Колличество строк и частота ошибок
     for _ in range(number_of_row):
         cur_str = ''
-        dice = randint(a=1, b=error_rate)
-        if dice > 1:  # Правильные строки
+        dice = randint(a=0, b=100)
+        if error_rate <= dice <= 100:  # Правильные строки
             cur_str += some_random('int') + ' '
             cur_str += some_random('op') + ' '
             cur_str += some_random('int')
-        else:  # Ошибочные строки
+        else:  # Ошибочные строки, но иногда случайно создаются правильные :)
             what_need = ['int', 'op', 'emp']
             cur_str += some_random(choice(what_need)) + ' '
             cur_str += some_random(choice(what_need)) + ' '
