@@ -4,6 +4,6 @@ def all_variants(s):
             yield s[i:j]
 
 
-text = "abc"
+text = "Ну это легко!"
 for var in all_variants(text):
     print(var)
