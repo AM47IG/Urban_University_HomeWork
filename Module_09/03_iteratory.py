@@ -3,20 +3,16 @@ class EvenNumbers:
     def __init__(self, start=0, end=1):
         self.start = start
         self.end = end
-        self.i = 0
 
     def __iter__(self):
-        self.i = 0
         if self.start % 2 != 0:  # Главное начать с четного :)
             self.start += 1
         return self
 
     def __next__(self):
-        self.i += 1
-        if self.i > 1:
-            self.start += 2  # До исключения, потому что end не включительно!
-            if self.start >= self.end:
-                raise StopIteration()
+        self.start += 2  # До исключения, потому что end не включительно!
+        if self.start >= self.end:
+            raise StopIteration()
         return self.start
 
 
