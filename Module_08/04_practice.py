@@ -1,10 +1,10 @@
-def calc(line):
-    global value
+def calc(expression):
     global cnt_err
     # print(f'Read line {line}', flush=True)
-    operand_1, operation, operand_2 = line.split()
+    operand_1, operation, operand_2 = expression.split()
     operand_1 = int(operand_1)
     operand_2 = int(operand_2)
+    value = 0
     if operation == '+':
         value = operand_1 + operand_2
     elif operation == '-':
@@ -19,7 +19,7 @@ def calc(line):
         value = operand_1 % operand_2
     else:
         cnt_err += 1
-        print(f'Неизвестный операнд "{operation}" в строке "{line}"\n'
+        print(f'Неизвестный операнд "{operation}" в строке "{expression}"\n'
               f'Номер строки: {cnt}\n')
     return value
 
