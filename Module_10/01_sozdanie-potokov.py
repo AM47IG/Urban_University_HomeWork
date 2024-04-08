@@ -10,6 +10,6 @@ def output(tpl=None):
 
 thread = Thread(target=output, kwargs=dict(tpl=(range(1, 11))))
 thread.start()
-time.sleep(0.5)
+time.sleep(0.001)
 output((chr(i) for i in range(ord('a'), ord('a') + 10)))
 thread.join()
