@@ -10,12 +10,12 @@ class BankAccount:
     def deposit(self, amount):
         with self.lock:
             self.balance += amount
-        print(f'Deposited {amount}, new balance is {self.balance}', flush=True)
+            print(f'Deposited {amount}, new balance is {self.balance}', flush=True)
 
     def withdraw(self, amount):
         with self.lock:
             self.balance -= amount
-        print(f'Withdrew {amount}, new balance is {self.balance}', flush=True)
+            print(f'Withdrew {amount}, new balance is {self.balance}', flush=True)
 
 
 def deposit_task(account, amount):
