@@ -1,5 +1,4 @@
 import random
-import time
 from collections import defaultdict
 from threading import Thread
 
