@@ -3,9 +3,9 @@ from threading import Thread, Lock
 
 class BankAccount:
 
-    def __init__(self, lock):
+    def __init__(self):
         self.balance = 1000
-        self.lock = lock
+        self.lock = Lock()
 
     def deposit(self, amount):
         with self.lock:
@@ -28,8 +28,7 @@ def withdraw_task(account, amount):
         account.withdraw(amount)
 
 
-lock = Lock()
-account = BankAccount(lock)
+account = BankAccount()
 deposit_thread = Thread(target=deposit_task, args=(account, 100))
 withdraw_thread = Thread(target=withdraw_task, args=(account, 150))
 
