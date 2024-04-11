@@ -19,12 +19,12 @@ class BankAccount:
 
 
 def deposit_task(account, amount):
-    for _ in range(1500):
+    for _ in range(5):
         account.deposit(amount)
 
 
 def withdraw_task(account, amount):
-    for _ in range(1000):
+    for _ in range(5):
         account.withdraw(amount)
 
 
