@@ -14,39 +14,47 @@ class Cafe:
 
     def __init__(self, tables):
         self.tables = tables
-        self.queue = queue.Queue(20)
+        self.queue = queue.Queue()
 
     def customer_arrival(self, number_of_customers=20):
-        for i in range(1, number_of_customers + 1):
-            print(f'Посетитель номер {i} прибыл')
-            self.serve_customer(i)
+        i = 0
+        while True:
+            if any((not table.is_busy) for table in self.tables) and not self.queue.empty():
+                self.serve_customer(self.queue.get())
+            if i < number_of_customers:
+                i += 1
+                self.serve_customer(Customer(i, self.tables))
             time.sleep(1)
+            if self.queue.empty() and i >= number_of_customers:
+                break    
+                    
+            
 
     def serve_customer(self, customer):
-        if all(table.is_busy for table in self.tables):
+        if any((not table.is_busy) for table in self.tables):
+            customer.start()
+        else:
             self.queue.put(customer)
-            print(f'Посетитель номер {customer} ожидает свободный стол')
-        while True:
-            if any(table.is_busy for table in self.tables):
-                Customer(customer, self.tables)
+            print(f'Посетитель номер {customer.number} ожидает свободный стол')
+            
 
 
 class Customer(threading.Thread):
 
-    def __init__(self, customer, tables):
+    def __init__(self, number, tables):
         super().__init__()
-        self.customer = customer
+        print(f'Посетитель номер {number} прибыл')
+        self.number = number 
         self.tables = tables
-        self.start()
 
     def run(self):
         for table in self.tables:
             if not table.is_busy:
-                print(f'Посетитель номер {self.customer} сел за стол {table.number}')
                 table.is_busy = True
+                print(f'Посетитель номер {self.number} сел за стол {table.number}')
                 time.sleep(5)
-                print(f'Посетитель номер {self.customer} покушал и ушел')
                 table.is_busy = False
+                print(f'Посетитель номер {self.number} покушал и ушел')
                 return
 
 
