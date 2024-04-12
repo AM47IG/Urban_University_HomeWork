@@ -26,9 +26,7 @@ class Cafe:
                 self.serve_customer(Customer(i, self.tables))
             time.sleep(1)
             if self.queue.empty() and i >= number_of_customers:
-                break    
-                    
-            
+                break
 
     def serve_customer(self, customer):
         if any((not table.is_busy) for table in self.tables):
@@ -36,7 +34,6 @@ class Cafe:
         else:
             self.queue.put(customer)
             print(f'Посетитель номер {customer.number} ожидает свободный стол')
-            
 
 
 class Customer(threading.Thread):
@@ -44,7 +41,7 @@ class Customer(threading.Thread):
     def __init__(self, number, tables):
         super().__init__()
         print(f'Посетитель номер {number} прибыл')
-        self.number = number 
+        self.number = number
         self.tables = tables
 
     def run(self):
@@ -56,8 +53,6 @@ class Customer(threading.Thread):
                 table.is_busy = False
                 print(f'Посетитель номер {self.number} покушал и ушел')
                 return
-
-
 
 
 # Создаем столики в кафе
