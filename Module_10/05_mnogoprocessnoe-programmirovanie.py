@@ -12,12 +12,12 @@ class WarehouseManager:
         data = conn.recv()
         if process == "receipt":
             data[product] = data.get(product, 0) + value
-            print(f'В data: {product} увеличено на {value}')
+            print(f'Склад: {product} увеличено на {value}')
         elif process == "shipment" and data.get(product, False) and data[product] >= value:
             data[product] -= value
-            print(f'В data: {product} уменьшено на {value}')
+            print(f'Склад: {product} уменьшено на {value}')
         else:
-            print(f'В data: нет {product} или оно меньше {value}')
+            print(f'Склад: {product} отсутствует или его значение меньше {value}')
         conn.send(data)
         conn.close()
         return
