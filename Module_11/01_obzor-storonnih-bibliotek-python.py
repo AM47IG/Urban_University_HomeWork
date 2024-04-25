@@ -1,5 +1,3 @@
-# Для запуска кода необходимо выделить весь код и раскомментировать...
-
 from pprint import pprint
 import requests
 import pandas as pd
