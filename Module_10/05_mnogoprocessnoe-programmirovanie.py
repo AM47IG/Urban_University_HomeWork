@@ -3,8 +3,7 @@ from multiprocessing import Process, Pipe
 
 class WarehouseManager:
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self):
         self.data = {}
 
     def process_request(self, request, conn):
@@ -51,6 +50,5 @@ requests = [
 if __name__ == '__main__':
     # Запускаем обработку запросов
     manager.run(requests)
-
     # Выводим обновленные данные о складских запасах
     print(manager.data)
