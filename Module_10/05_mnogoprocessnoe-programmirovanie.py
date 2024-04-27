@@ -19,7 +19,6 @@ class WarehouseManager:
             print(f'Склад: {product} отсутствует или его значение меньше {value}')
         conn.send(data)
         conn.close()
-        return
 
     def run(self, requests):
         procs, pipes = [], []
