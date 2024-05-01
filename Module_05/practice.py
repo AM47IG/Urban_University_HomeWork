@@ -1,5 +1,6 @@
 from random import randint
 from colorama import init, Fore, Back, Style
+
 init(autoreset=True)
 
 
@@ -78,16 +79,16 @@ citizens = [
     Man('Батхэд'),
     Man('Кенни')
 ]
-
-my_sweet_home = House('Мой милый дом')
-for citizen in citizens:
-    citizen.go_into_house(my_sweet_home)
-
-for day in range(1, 366):
-    print('\n', Back.LIGHTBLACK_EX + Fore.BLUE + '============ День {} ============'.format(day))
+if __name__ == '__main__':
+    my_sweet_home = House('Мой милый дом')
     for citizen in citizens:
-        citizen.act()
-    print(Fore.BLUE + '-------- в конце дня ------------')
-    for citizen in citizens:
-        print(citizen)
-    print(my_sweet_home)
+        citizen.go_into_house(my_sweet_home)
+
+    for day in range(1, 366):
+        print('\n', Back.LIGHTBLACK_EX + Fore.BLUE + '============ День {} ============'.format(day))
+        for citizen in citizens:
+            citizen.act()
+        print(Fore.BLUE + '-------- в конце дня ------------')
+        for citizen in citizens:
+            print(citizen)
+        print(my_sweet_home)
