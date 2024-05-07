@@ -1,7 +1,7 @@
 import inspect
 from pprint import pprint
 from decimal import Decimal
-from Module_05.practice import Man  # Класс из практики Модуля 6.
+from Module_05.practice import Man  # Класс из практики Модуля 5.
 
 
 def introspection_info(obj):
