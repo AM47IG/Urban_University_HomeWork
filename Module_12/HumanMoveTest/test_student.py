@@ -12,14 +12,14 @@ class StudentTest(unittest.TestCase):
         [self.student_one.run() for _ in range(10)]
         result = self.student_one.distance
         target = 100
-        msg = f'Дистанции не равны {self.student_one.distance} != 100'
+        msg = f'Дистанции не равны [дистанция человека(объекта)] != {target}'
         self.assertEqual(result, target, msg)
 
     def test_run(self):
         [self.student_two.walk() for _ in range(10)]
         result = self.student_two.distance
         target = 50
-        msg = f'Дистанции не равны {self.student_two.distance} != 50'
+        msg = f'Дистанции не равны [дистанция человека(объекта)] != {target}'
         self.assertEqual(result, target, msg)
 
     def test_race(self):
@@ -27,7 +27,7 @@ class StudentTest(unittest.TestCase):
         self.student_two.walk()
         result_one = self.student_one.distance
         result_two = self.student_two.distance
-        msg = f'{self.student_one} должен преодолеть дистанцию больше, чем {self.student_two}.'
+        msg = '[бегущий человек] должен преодолеть дистанцию больше, чем [идущий человек].'
         self.assertGreater(result_one, result_two, msg)
 
 
