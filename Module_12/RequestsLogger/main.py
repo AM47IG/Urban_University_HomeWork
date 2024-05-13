@@ -14,12 +14,11 @@ sites = ['https://www.youtube.com/', 'https://instagram.com', 'https://wikipedia
 for site in sites:
     try:
         response = rq.get(site, timeout=3)
-    except rq.exceptions.ConnectionError:
-        log_blocked.error(f'\'{site}\', NO CONNECTION')
-    except rq.exceptions.ReadTimeout:
-        log_blocked.error(f'\'{site}\', READ TIMEOUT')
-    else:
         if response.status_code == 200:
             log_success.info(f'\'{site}\', response - 200')
         else:
             log_bad.warning(f'\'{site}\', response - {response.status_code}')
+    except rq.exceptions.ConnectionError:
+        log_blocked.error(f'\'{site}\', NO CONNECTION')
+    except rq.exceptions.ReadTimeout:
+        log_blocked.error(f'\'{site}\', READ TIMEOUT')
