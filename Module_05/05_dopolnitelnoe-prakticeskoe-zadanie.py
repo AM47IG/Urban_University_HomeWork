@@ -12,7 +12,7 @@ class User:
         return self.nickname
 
     def __eq__(self, other):
-        return (self.nickname, self.password) == other
+        return self.nickname == other
 
 
 class Video:
@@ -26,6 +26,9 @@ class Video:
     def __str__(self):
         return self.title
 
+    def __eq__(self, other):
+        return self.title == other
+
 
 class UrTube:
 
@@ -35,15 +38,18 @@ class UrTube:
         self.current_user = None
 
     def log_in(self, login, password):
-        if (login, hash(password)) in map(lambda x: (x.nickname, x.password), self.users):
-            self.current_user = self.users[]
+        if login in self.users:
+            user = self.users[self.users.index(login)]
+            if hash(password) == user.password:
+                self.current_user = user
 
     def register(self, nickname, password, age):
         if nickname in self.users:
             print(f'Пользователь {nickname} уже существует')
         else:
-            self.users.append(User(nickname, password, age))
-            self.log_in(nickname, password)
+            user = User(nickname, password, age)
+            self.users.append(user)
+            self.current_user = user
 
     def log_out(self):
         self.current_user = None
@@ -60,15 +66,15 @@ class UrTube:
         if not self.current_user:
             print('Войдите в аккаунт чтобы смотреть видео')
         elif title in self.videos:
-            v = self.videos[self.videos.index(title)]
-            if v.adult_mode and self.current_user.age < 18:
+            video = self.videos[self.videos.index(title)]
+            if video.adult_mode and self.current_user.age < 18:
                 print('Вам нет 18 лет, пожалуйста покиньте страницу')
                 return
-            while self.videos[title].duration > self.videos[title].time_now:
-                self.videos[title].time_now += 1
-                print(self.videos[title].time_now, end=' ')
+            while video.duration > video.time_now:
+                video.time_now += 1
+                print(video.time_now, end=' ')
                 time.sleep(1)
-            self.videos[title].time_now = 0
+            video.time_now = 0
             print('Конец видео')
 
 
@@ -92,10 +98,8 @@ ur.watch_video('Для чего девушкам парень программи
 
 # Проверка входа в другой аккаунт
 ur.register('vasya_pupkin', 'F8098FM8fjm9jmi', 55)
+ur.log_in('vasya_pupkin', 'F8098FM8fjm9jmi')
 print(ur.current_user)
 
 # Попытка воспроизведения несуществующего видео
 ur.watch_video('Лучший язык программирования 2024 года!')
-
-
-# print(ur.users[0])
