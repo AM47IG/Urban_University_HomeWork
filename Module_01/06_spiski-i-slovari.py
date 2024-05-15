@@ -2,7 +2,8 @@ my_list = ['Hello', 'Goodbye', 'Fanks', 'Please', 'Good Night', 'Welcome', ]  # 
 print('List: ', my_list)  # Вывел список
 print('First element: ', my_list[0])  # Вывел первый элемент списка
 print('Last element: ', my_list[-1])  # Вывел последний элемент списка
-print('Sublist', my_list[2:4])  # Вывел элементы списка с 3 по 5
+print('Sublist', my_list[2:5])  # Вывел элементы списка с 3 по 5 (включительно)
+# print('Sublist', my_list[2:4])  # Вывел элементы списка с 3 по 5 (не включительно)
 my_list[2] = 'Thanks'  # Изменил элемент списка
 print('Modified list: ', my_list)  # Вывел список с измененным элементом
 print('')  # Просто пустая строка для разделения
