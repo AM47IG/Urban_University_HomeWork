@@ -38,7 +38,7 @@ def test_():
     list_ = [el for el in str_.split() if el not in '-']
     dict_ = {int(k): v for k, v in zip(list_[0::2], list_[1::2])}
     for i in range(3, 21):
-        assert password(i) == dict_[i], f'{password(i)} =! {dict_[i]}'
+        assert password(i) == dict_[i], f'{password(i)} != {dict_[i]}'
 
 
 test_()
