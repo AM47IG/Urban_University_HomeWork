@@ -7,11 +7,10 @@ def password(n=None):
             cur = n % (i + j)
             if n % (i + j) == 0:
                 result += str(i) + str(j)
-    print(f'Пароль для {n}:', result)
-    return result  # Для test_
+    return result
 
 
-password()
+print('Пароль:', password())
 
 
 def test_():
@@ -39,8 +38,7 @@ def test_():
     list_ = [el for el in str_.split() if el not in '-']
     dict_ = {int(k): v for k, v in zip(list_[0::2], list_[1::2])}
     for i in range(3, 21):
-        print(f'Сверка для {i}:', dict_[i])
-        print(password(i) == dict_[i])
-        print()
+        assert password(i) == dict_[i], f'{password(i)} =! {dict_[i]}'
 
-# test_()
+
+test_()
