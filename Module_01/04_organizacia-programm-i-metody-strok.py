@@ -1,4 +1,4 @@
-my_string = 'Что я делал прошлым летом'  # Задал переменную
+my_string = input()  # Задал переменную
 print('String length: ', len(my_string))  # Вывел длину строки
 print(my_string.upper())  # Вывел строку в верхнем регистре
 print(my_string.lower())  # Вывел строку в нижнем регистре
