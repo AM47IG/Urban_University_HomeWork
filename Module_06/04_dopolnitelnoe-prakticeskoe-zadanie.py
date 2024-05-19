@@ -55,8 +55,8 @@ class Circle(Figure):
         super().__init__(*args, **kwargs)
         self.__radius = self.get_sides()[0]*2/(4*math.pi)
 
-    def get_square(self):
-        return math.pi * self.__radius * 2
+    def get_square(self, round_=3):
+        return round(math.pi * self.__radius * 2, round_)
 
 
 class Triangle(Figure):
@@ -111,6 +111,9 @@ print('Периметр треугольника:', len(triangle1))
 
 # Проверка объёма (куба):
 print('Объем куба:', cube1.get_volume())
+
+# Проверка площади (круга):
+print('Площадь круга:', circle1.get_square())
 
 # Проверка площади (треугольника):
 print('Площадь треугольника:', triangle1.get_square())
