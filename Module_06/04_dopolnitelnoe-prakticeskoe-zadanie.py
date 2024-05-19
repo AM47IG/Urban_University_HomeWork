@@ -1,3 +1,7 @@
+# При создании объектов использую те же методы, что и необходимы для изменения свойств фигур. Считаю, что так меньше
+# проверок создавать нужно, ведь мне не надо проверять разными способами одни и те же параметры при создании,
+# а потом при использовании методов.
+
 import math
 
 
@@ -60,10 +64,13 @@ class Triangle(Figure):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.__height = self.get_sides()
+        a, b, c = self.get_sides()
+        p = (a + b + c) / 2
+        self.square = (p * (p - a) * (p - b) * (p - c)) ** 0.5
+        self.__height = a * b / c
 
-    def get_square(self):
-        pass
+    def get_square(self, round_=3):
+        return round(self.square, round_)
 
 
 class Cube(Figure):
@@ -81,21 +88,29 @@ class Cube(Figure):
 
 circle1 = Circle((200, 200, 100), 10)  # (Цвет, стороны)
 cube1 = Cube((222, 35, 130), 6)
+triangle1 = Triangle((154, 167, 489), 4, 6, 8)
 
 # Проверка на изменение цветов:
 circle1.set_color(55, 66, 77)  # Изменится
 cube1.set_color(300, 70, 15)  # Не изменится
-print(circle1.get_color())
-print(cube1.get_color())
+print('Цвет круга:', circle1.get_color())
+print('Цвет куба:', cube1.get_color())
+print('Цвет треугольника:', triangle1.get_color())  # [0, 0, 0], потому что при создании некорректные параметры
 
 # Проверка на изменение сторон:
 cube1.set_sides(5, 3, 12, 4, 5)  # Не изменится
 circle1.set_sides(15)  # Изменится
-print(cube1.get_sides())
-print(circle1.get_sides())
+triangle1.set_sides(2, 2, 2, 2)  # Не изменится
+print('Стороны куба:', cube1.get_sides())
+print('Стороны круга:', circle1.get_sides())
+print('Стороны треугольника:', triangle1.get_sides())
 
 # Проверка периметра (круга), это и есть длина:
-print(len(circle1))
+print('Периметр круга:', len(circle1))
+print('Периметр треугольника:', len(triangle1))
 
 # Проверка объёма (куба):
-print(cube1.get_volume())
+print('Объем куба:', cube1.get_volume())
+
+# Проверка площади (треугольника):
+print('Площадь треугольника:', triangle1.get_square())
