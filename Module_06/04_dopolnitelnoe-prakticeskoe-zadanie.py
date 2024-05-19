@@ -24,7 +24,7 @@ class Figure:
 
     def __is_valid_sides(self, sides):
         if len(sides) == self.sides_count:
-            if all([isinstance(i, int) for i in sides]):
+            if all([isinstance(i, (int, float)) for i in sides]):
                 if all([i > 0 for i in sides]):
                     return True
         return False
@@ -53,10 +53,14 @@ class Circle(Figure):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.__radius = self.get_sides()[0]*2/(4*math.pi)
+        self.__radius = 0
 
     def get_square(self, round_=3):
         return round(math.pi * self.__radius * 2, round_)
+
+    def set_sides(self, *sides):
+        super().set_sides(*sides)
+        self.__radius = self.get_sides()[0]*2/(4*math.pi)
 
 
 class Triangle(Figure):
@@ -99,7 +103,7 @@ print('Цвет треугольника:', triangle1.get_color())  # [0, 0, 0],
 
 # Проверка на изменение сторон:
 cube1.set_sides(5, 3, 12, 4, 5)  # Не изменится
-circle1.set_sides(15)  # Изменится
+circle1.set_sides(125)  # Изменится
 triangle1.set_sides(2, 2, 2, 2)  # Не изменится
 print('Стороны куба:', cube1.get_sides())
 print('Стороны круга:', circle1.get_sides())
