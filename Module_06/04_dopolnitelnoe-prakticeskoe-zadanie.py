@@ -79,7 +79,7 @@ class Cube(Figure):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def set_sides(self, *sides):
+    def set_sides(self, *sides):  # Переопределяю set_sides, вместо __sides, что бы не повторять проверки из Figure.
         super().set_sides(*sides * 12)
 
     def get_volume(self):
