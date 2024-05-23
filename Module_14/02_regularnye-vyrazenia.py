@@ -2,15 +2,11 @@ import re
 
 
 def extract_image_links(html):
-    pattern = (r'(?:https?://)(?P<site_name>[\w-]+.\w{2,3})(?:/[\w-]+)*/'
-               r'(?P<file_name>[\w-]+(?:\.jpg|\.jpeg|\.png|\.gif)(?=\'))')
+    pattern = r'(?:https?://)(?P<site_name>[\w-]+.\w{2,3})(?:/[\w-]+)*/(?P<file_name>[\w-]+(?:\.jpg|\.jpeg|\.png|\.gif)(?=\'|\"))'
     return re.finditer(pattern, html)
 
 
-sample_html = ("<img src='https://example.com/awdfgeswgr/image1.jpg'> <img src='http://example.com/image2.png'> <img "
-               "src='https://example.com/image3.gif'> <img "
-               "src='https://urban-university.ru/members/courses/course999421818026/20240124-0000domasnee-zadanie-po"
-               "-teme-regularnye-vyrazenia-737906319602/132154-awd_w.jpeg'>")
+sample_html = "<img src='https://example.com/awdfgeswgr/image1.jpg'> <img src='http://example.com/image2.png'> <img src='https://example.com/image3.gif'> <img src='https://urban-university.ru/members/courses/course999421818026/20240124-0000domasnee-zadanie-po-teme-regularnye-vyrazenia-737906319602/132154-awd_w.jpeg'>"
 image_links = extract_image_links(sample_html)
 if image_links:
     for image_link in image_links:
