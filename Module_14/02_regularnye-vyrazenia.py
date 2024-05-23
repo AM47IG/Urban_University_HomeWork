@@ -2,8 +2,8 @@ import re
 
 
 def extract_image_links(html):
-    pattern = (r'((?:https?://)(?P<site_name>[\w-]+.\w{2,3})(?:/[\w-]+)*/'
-               r'(?P<file_name>[\w-]+(?:\.jpg|\.jpeg|\.png|\.gif)(?=\')))')
+    pattern = (r'(?:https?://)(?P<site_name>[\w-]+.\w{2,3})(?:/[\w-]+)*/'
+               r'(?P<file_name>[\w-]+(?:\.jpg|\.jpeg|\.png|\.gif)(?=\'))')
     return re.finditer(pattern, html)
 
 
