@@ -10,7 +10,7 @@ sample_html = "<img src='https://example.com/awdfgeswgr/image1.jpg'> <img src='h
 image_links = extract_image_links(sample_html)
 if image_links:
     for image_link in image_links:
-        print(f'{'':_^{len(image_link[0])+23}}')
+        print(f'{'':_^{23+len(image_link[0])}}')
         print('Ссылка на изображение:'.ljust(22), image_link[0])
         print('Сайт:'.ljust(22), image_link.group('site_name'))
         print('Имя файла:'.ljust(22), image_link.group('file_name'))
