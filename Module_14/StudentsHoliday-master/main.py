@@ -22,6 +22,7 @@ def write_holiday_cities(first_letter='L'):
         writer = csv.writer(out_file)
         for list_ in (have, want, not_has, go_to):
             writer.writerow(list_)
+        # # Вариант с пояснением, но тогда список городов в одной "ячейке"
         # writer = csv.writer(out_file, delimiter=':')
         # for info, list_ in zip(info_list, (have, want, not_has, go_to)):
         #     writer.writerow([info] + [';'.join(list_)])
