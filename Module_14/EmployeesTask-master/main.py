@@ -12,7 +12,7 @@ def employees_rewrite(sort_type):
     else:
         raise ValueError('Bad key for sorting')
     sort_data = sorted(data['employees'], key=lambda x: x[valid_sort_type])
-    with open(f'employees_{sort_type.lower()}_sorted.json', mode='w+', encoding='utf-8') as out_file:
+    with open(f'employees_{sort_type.lower()}_sorted.json', mode='w', encoding='utf-8') as out_file:
         json.dump(sort_data, out_file, indent=4)
 
 
