@@ -21,5 +21,5 @@ for i in range(83, 165):
 for i in range(165, 252):
     cv2.drawContours(new_img, con, i, (20, 225, 25))
 
-cv2.imshow('Res', new_img)
+cv2.imshow('Result', new_img)
 cv2.waitKey(0)
