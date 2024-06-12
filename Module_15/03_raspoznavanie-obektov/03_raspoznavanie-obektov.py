@@ -1,5 +1,3 @@
-import time
-
 import cv2
 import numpy as np
 
@@ -19,8 +17,7 @@ while True:
         cur = []
         for x, y, w, h in find_eyes:
             # cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 255), thickness=3)
-            cur.append((x, y))
-            cur.append((x + w, y + h))
+            cur.extend([(x, y), (x + w, y + h)])
         eyes_xy = ((min(cur)[0] - 50, min(cur, key=lambda el: el[1])[1]),
                    (max(cur)[0] + 50, max(cur, key=lambda el: el[1])[1]))
         cv2.rectangle(mask, *eyes_xy, (255, ), thickness=-1)
@@ -32,5 +29,5 @@ while True:
     # cv2.imshow('Gray', gray)
     # cv2.imshow('IMG', img)
     cv2.imshow('Result', result)
-    if cv2.waitKey(10) & 0xFF == ord('q'):
+    if cv2.waitKey(5) & 0xFF == ord('q'):
         break
