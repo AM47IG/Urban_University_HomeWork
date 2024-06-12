@@ -3,7 +3,6 @@ import numpy as np
 
 
 img = cv2.imread('02_img.png')
-img2 = cv2.imread('02_img.png')
 img = img[0:480, 0:730]
 new_img = np.zeros(img.shape, np.uint8)
 
