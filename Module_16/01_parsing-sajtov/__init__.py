@@ -25,8 +25,7 @@ def write_cmc_top():
         list_of_name.append((coin.find_next('p', class_='sc-71024e3e-0 ehyBa-d').get_text().split()[0]))
         list_of_mc.append(coin.find_next('span', class_='sc-11478e5d-1 hwOFkt').get_text()[1:])
     capitalization_of_top_100 = sum(map(lambda x: int(x.replace(',', '')), list_of_mc))
-    list_of_mp = [D(100) / D(capitalization_of_top_100) * D(mc) for mc in
-                  map(lambda x: int(x.replace(',', '')), list_of_mc)]
+    list_of_mp = [100 / capitalization_of_top_100 * mc for mc in map(lambda x: int(x.replace(',', '')), list_of_mc)]
 
     # Запись данных в файл
     with open(f'{datetime.datetime.now().strftime('%H.%M %d.%m.%Y')}.csv', 'w', encoding='utf-8') as output:
@@ -34,7 +33,7 @@ def write_cmc_top():
         csv_out.writerow(['Name', 'MC(RUB)', 'MP'])
         cnt = 0
         for name, mc, mp in zip(list_of_name, list_of_mc, list_of_mp):
-            csv_out.writerow([name, mc, f'{mp.quantize(D('1.00'))}%'])
+            csv_out.writerow([name, mc, f'{round(mp, 2)}%'])
             cnt += 1
 
     # Успех!
