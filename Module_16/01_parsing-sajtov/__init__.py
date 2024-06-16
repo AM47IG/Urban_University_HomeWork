@@ -9,11 +9,16 @@ from decimal import Decimal as D
 
 
 def write_cmc_top():
+    # Создание драйвера
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+
+    # Парсинг сайта
     url = 'https://coinmarketcap.com/ru/'
     driver.get(url)
     driver.execute_script("window.scroll({ top: document.body.scrollHeight, behavior: 'smooth' });")
     time.sleep(10)
+
+    # Создание необходимых коллекций для дальнейшей записи в файл
     soup = BeautifulSoup(driver.page_source, features='html.parser')
     list_of_name, list_of_mc = [], []
     for coin in soup.find_all('tr')[1:]:
@@ -22,6 +27,8 @@ def write_cmc_top():
     capitalization_of_top_100 = sum(map(lambda x: int(x.replace(',', '')), list_of_mc))
     list_of_mp = [D(100) / D(capitalization_of_top_100) * D(mc) for mc in
                   map(lambda x: int(x.replace(',', '')), list_of_mc)]
+
+    # Запись данных в файл
     with open(f'{datetime.datetime.now().strftime('%H.%M %d.%m.%Y')}.csv', 'w', encoding='utf-8') as output:
         csv_out = csv.writer(output, delimiter=' ', lineterminator="\r")
         csv_out.writerow(['Name', 'MC', 'MP'])
@@ -29,6 +36,8 @@ def write_cmc_top():
         for name, mc, mp in zip(list_of_name, list_of_mc, list_of_mp):
             csv_out.writerow([name, mc, f'{mp.quantize(D('1.00'))}%'])
             cnt += 1
+
+    # Успех!
     print(f'Файл {output.name} записан! Кол-во строк {cnt}')
 
 
