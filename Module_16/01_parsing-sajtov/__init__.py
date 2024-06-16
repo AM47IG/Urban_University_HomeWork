@@ -5,7 +5,6 @@ from bs4 import BeautifulSoup
 import time
 import datetime
 import csv
-from decimal import Decimal as D
 
 
 def write_cmc_top():
