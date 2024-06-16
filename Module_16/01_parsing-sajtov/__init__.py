@@ -14,8 +14,8 @@ def write_cmc_top():
     # Парсинг сайта
     url = 'https://coinmarketcap.com/ru/'
     driver.get(url)
-    driver.execute_script("window.scroll({ top: document.body.scrollHeight, behavior: 'smooth' });")
-    time.sleep(30)
+    driver.execute_script("setInterval(function(){window.scrollBy(0,512);}, 200)")
+    time.sleep(10)
 
     # Создание необходимых коллекций для дальнейшей записи в файл
     soup = BeautifulSoup(driver.page_source, features='html.parser')
