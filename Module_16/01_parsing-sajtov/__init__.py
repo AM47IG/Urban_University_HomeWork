@@ -15,13 +15,13 @@ def write_cmc_top():
     url = 'https://coinmarketcap.com/ru/'
     driver.get(url)
     driver.execute_script("window.scroll({ top: document.body.scrollHeight, behavior: 'smooth' });")
-    time.sleep(10)
+    time.sleep(30)
 
     # Создание необходимых коллекций для дальнейшей записи в файл
     soup = BeautifulSoup(driver.page_source, features='html.parser')
     list_of_name, list_of_mc = [], []
     for coin in soup.find_all('tr')[1:]:
-        list_of_name.append((coin.find_next('p', class_='sc-71024e3e-0 ehyBa-d').get_text().split()[0]))
+        list_of_name.append((coin.find_next('p', class_='sc-71024e3e-0 ehyBa-d').get_text().replace(' ', '_')))
         list_of_mc.append(coin.find_next('span', class_='sc-11478e5d-1 hwOFkt').get_text()[1:])
     capitalization_of_top_100 = sum(map(lambda x: int(x.replace(',', '')), list_of_mc))
     list_of_mp = [100 / capitalization_of_top_100 * mc for mc in map(lambda x: int(x.replace(',', '')), list_of_mc)]
