@@ -9,16 +9,21 @@ import csv
 
 def write_cmc_top():
     # Создание драйвера
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    options = webdriver.ChromeOptions()
+    options.add_argument('--headless')
+    options.add_argument('--disable-gpu')
+    options.add_argument('--blink-settings=imagesEnabled=false')
+    options.page_load_strategy = 'none'
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
     # Парсинг сайта
     url = 'https://coinmarketcap.com/ru/'
     driver.get(url)
-    driver.execute_script("setInterval(function(){window.scrollBy({ top: 512, behavior: 'smooth' });}, 300)")
+    driver.execute_script("setInterval(function(){window.scrollBy({ top: 1024, behavior: 'smooth' });}, 808)")
     time.sleep(10)
+    soup = BeautifulSoup(driver.page_source, features='html.parser')
 
     # Создание необходимых коллекций для дальнейшей записи в файл
-    soup = BeautifulSoup(driver.page_source, features='html.parser')
     list_of_name, list_of_mc = [], []
     for coin in soup.find_all('tr')[1:]:
         list_of_name.append((coin.find_next('p', class_='sc-71024e3e-0 ehyBa-d').get_text().replace(' ', '_')))
