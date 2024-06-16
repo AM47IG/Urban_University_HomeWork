@@ -14,7 +14,7 @@ def write_cmc_top():
     # Парсинг сайта
     url = 'https://coinmarketcap.com/ru/'
     driver.get(url)
-    driver.execute_script("setInterval(function(){window.scrollBy(0,512);}, 200)")
+    driver.execute_script("setInterval(function(){window.scrollBy({ top: 512, behavior: 'smooth' });}, 300)")
     time.sleep(10)
 
     # Создание необходимых коллекций для дальнейшей записи в файл
