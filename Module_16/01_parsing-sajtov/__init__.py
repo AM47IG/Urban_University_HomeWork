@@ -31,7 +31,7 @@ def write_cmc_top():
     # Запись данных в файл
     with open(f'{datetime.datetime.now().strftime('%H.%M %d.%m.%Y')}.csv', 'w', encoding='utf-8') as output:
         csv_out = csv.writer(output, delimiter=' ', lineterminator="\r")
-        csv_out.writerow(['Name', 'MC', 'MP'])
+        csv_out.writerow(['Name', 'MC(RUB)', 'MP'])
         cnt = 0
         for name, mc, mp in zip(list_of_name, list_of_mc, list_of_mp):
             csv_out.writerow([name, mc, f'{mp.quantize(D('1.00'))}%'])
