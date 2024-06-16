@@ -8,12 +8,12 @@ import csv
 
 
 def write_cmc_top():
-    # Создание драйвера
+    # Создание и конфигурация драйвера
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
     options.add_argument('--disable-gpu')
-    options.add_argument('--blink-settings=imagesEnabled=false')
-    options.page_load_strategy = 'none'
+    # options.add_argument('--blink-settings=imagesEnabled=false')
+    options.page_load_strategy = ('none', 'eager', 'normal')[1]
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
     # Парсинг сайта
