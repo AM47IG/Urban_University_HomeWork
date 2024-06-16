@@ -19,7 +19,7 @@ def write_cmc_top():
     # Парсинг сайта
     url = 'https://coinmarketcap.com/ru/'
     driver.get(url)
-    driver.execute_script("setInterval(function(){window.scrollBy({ top: 1024, behavior: 'smooth' });}, 808)")
+    driver.execute_script("setInterval(function(){window.scrollBy({ top: 1024 });}, 500)")
     time.sleep(10)
     soup = BeautifulSoup(driver.page_source, features='html.parser')
 
@@ -30,6 +30,8 @@ def write_cmc_top():
         list_of_mc.append(coin.find_next('span', class_='sc-11478e5d-1 hwOFkt').get_text()[1:])
     capitalization_of_top_100 = sum(map(lambda x: int(x.replace(',', '')), list_of_mc))
     list_of_mp = [100 / capitalization_of_top_100 * mc for mc in map(lambda x: int(x.replace(',', '')), list_of_mc)]
+    if len(set(list_of_name)) != 100 or len(list_of_name) != 100:
+        raise Exception(f'Ошибка! Считано {len(set(list_of_name))} вместо 100 строк.')
 
     # Запись данных в файл
     with open(f'{datetime.datetime.now().strftime('%H.%M %d.%m.%Y')}.csv', 'w', encoding='utf-8') as output:
