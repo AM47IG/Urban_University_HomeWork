@@ -1,7 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
-from bs4 import BeautifulSoup
 import time
 import datetime
 import csv
@@ -12,7 +11,7 @@ def write_cmc_top():
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
     options.add_argument('--disable-gpu')
-    # options.add_argument('--blink-settings=imagesEnabled=false')  # Нестабильная загрузка с этим параметром!
+    options.add_argument('--blink-settings=imagesEnabled=false')  # Нестабильная загрузка с этим параметром!
     options.page_load_strategy = ('none', 'eager', 'normal')[1]
     try:
         driver = webdriver.Chrome(options=options)
@@ -25,27 +24,23 @@ def write_cmc_top():
     driver.get(url)
     driver.execute_script("setInterval(function(){window.scrollBy({ top: 1024 });}, 500)")
     time.sleep(7)
-
-    assert driver.current_url == 'https://coinmarketcap.com/ru/'
-    soup = BeautifulSoup(driver.page_source, features='html.parser')
+    assert driver.current_url == 'https://coinmarketcap.com/ru/', 'Некорректный URL!'
 
     # Создание необходимых коллекций для дальнейшей записи в файл
-    list_of_name, list_of_mc = [], []
-    for coin in soup.find_all('tr')[1:]:
-        list_of_name.append((coin.find_next('p', class_='sc-71024e3e-0 ehyBa-d').get_text().replace(' ', '_')))
-        list_of_mc.append(coin.find_next('span', class_='sc-11478e5d-1 hwOFkt').get_text()[1:])
-    capitalization_of_top_100 = sum(map(lambda x: int(x.replace(',', '')), list_of_mc))
-    list_of_mp = [100 / capitalization_of_top_100 * mc for mc in map(lambda x: int(x.replace(',', '')), list_of_mc)]
+    list_of_names = driver.find_elements("xpath", "//table//p[@class = 'sc-71024e3e-0 ehyBa-d']")
+    list_of_mc = driver.find_elements("xpath", "//table//span[@class = 'sc-11478e5d-1 hwOFkt']")
+    assert len(set(list_of_names)) == 100 and len(list_of_names) == 100, f'Считано не 100 строк!'
 
-    assert len(set(list_of_name)) == 100 and len(list_of_name) == 100, \
-        f'Ошибка! Считано {len(set(list_of_name))} строк вместо 100.'
+    list_of_names = [web_element.text.replace(' ', '_') for web_element in list_of_names]
+    list_of_mc = [int(web_element.text[1:].replace(',', '')) for web_element in list_of_mc]
+    list_of_mp = [100 / sum(list_of_mc) * mc for mc in list_of_mc]
 
     # Запись данных в файл
-    with open(f'{datetime.datetime.now().strftime('%H.%M %d.%m.%Y')}.csv', 'w', encoding='utf-8') as output:
+    with open(f'{datetime.datetime.now():%H.%M %d.%m.%Y}.csv', 'w', encoding='utf-8') as output:
         csv_out = csv.writer(output, delimiter=' ', lineterminator="\r")
         csv_out.writerow(['Name', 'MC(RUB)', 'MP'])
-        for name, mc, mp in zip(list_of_name, list_of_mc, list_of_mp):
-            csv_out.writerow([name, mc, f'{round(mp, 2)}%'])
+        for name, mc, mp in zip(list_of_names, list_of_mc, list_of_mp):
+            csv_out.writerow([name, f'{mc:,}', f'{mp:.2f}%'])
 
     # Успех!
     print(f'Файл {output.name} записан!')
