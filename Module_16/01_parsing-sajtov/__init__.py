@@ -22,7 +22,7 @@ def write_cmc_top():
     # Парсинг сайта
     url = 'https://coinmarketcap.com/ru/'
     driver.get(url)
-    driver.execute_script("setInterval(function(){window.scrollBy({ top: 1024 });}, 500)")
+    driver.execute_script("setInterval(function(){window.scrollBy({ top: 1024, behavior: 'smooth' });}, 500)")
     time.sleep(7)
     assert driver.current_url == 'https://coinmarketcap.com/ru/', 'Некорректный URL!'
 
