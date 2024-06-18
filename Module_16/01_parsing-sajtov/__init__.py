@@ -14,13 +14,17 @@ def write_cmc_top():
     options.add_argument('--disable-gpu')
     # options.add_argument('--blink-settings=imagesEnabled=false')  # Нестабильная загрузка с этим параметром!
     options.page_load_strategy = ('none', 'eager', 'normal')[1]
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+    try:
+        driver = webdriver.Chrome(options=options)
+    except Exception as exc:
+        print(f'Ошибка {exc.args}. Пробуем обновить драйвер!')
+        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
     # Парсинг сайта
     url = 'https://coinmarketcap.com/ru/'
     driver.get(url)
     driver.execute_script("setInterval(function(){window.scrollBy({ top: 1024 });}, 500)")
-    time.sleep(10)
+    time.sleep(7)
     soup = BeautifulSoup(driver.page_source, features='html.parser')
 
     # Создание необходимых коллекций для дальнейшей записи в файл
@@ -31,7 +35,7 @@ def write_cmc_top():
     capitalization_of_top_100 = sum(map(lambda x: int(x.replace(',', '')), list_of_mc))
     list_of_mp = [100 / capitalization_of_top_100 * mc for mc in map(lambda x: int(x.replace(',', '')), list_of_mc)]
     if len(set(list_of_name)) != 100 or len(list_of_name) != 100:
-        raise Exception(f'Ошибка! Считано {len(set(list_of_name))} вместо 100 строк.')
+        raise Exception(f'Ошибка! Считано {len(set(list_of_name))} строк вместо 100.')
 
     # Запись данных в файл
     with open(f'{datetime.datetime.now().strftime('%H.%M %d.%m.%Y')}.csv', 'w', encoding='utf-8') as output:
