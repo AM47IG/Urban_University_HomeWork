@@ -1,5 +1,5 @@
 import zipfile
-from  pprint import pprint
+from pprint import pprint
 from random import randint
 
 
@@ -83,4 +83,4 @@ class Chatterer:
 chattere = Chatterer(file_name='voyna_i_mir.txt')
 chattere.collect()
 chattere.prepare()
-chattere.chat(out_file_name='out.txt', N=99)
+chattere.chat(out_file_name='out.txt')

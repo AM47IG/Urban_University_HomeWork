@@ -62,7 +62,7 @@ class Team:
             print(f'Команды {self.name} и {other.name} делят победу!')
 
 
-print(f'{'Игра началась':-^40}')
+print(f'{"Игра началась":-^40}')
 team1 = Team('"Мастера кода"', randint(3, 6))
 team2 = Team('"Волшебники данных"', randint(3, 6))
 team1.act()
@@ -72,10 +72,8 @@ while Team.cnt_end_game != Team.quantity_of_team:
     team2.act()
     print()
 
-print(f'{'Игра окончена':-^40}')
+print(f'{"Игра окончена":-^40}')
 print(f'\nКоманды решили {team1.count_of_solved_tasks} и {team2.count_of_solved_tasks} задач.\n')
-
-team1 <= team2
 
 tasks_total = Team.solved_tasks_total
 time_avg = Team.time_total / tasks_total

@@ -28,15 +28,15 @@ class Fisher(Thread):
 
 vasya = Fisher(name='Вася', worms=10)
 kolya = Fisher(name='Коля', worms=10)
-print(f'{'Они пошли на рыбалку':-^50}')
+print(f'{"Они пошли на рыбалку":-^50}')
 
 vasya.start()
 kolya.start()
-print(f'{'Ждем пока они вернуться...':-^50}')
+print(f'{"Ждем пока они вернуться...":-^50}')
 
 vasya.join()
 kolya.join()
-print(f'{'Итак, они вернулись':-^50}')
+print(f'{"Итак, они вернулись":-^50}')
 
 for fisher in (kolya, vasya):
     print(f'Итого рыбак {fisher.name} поймал:')

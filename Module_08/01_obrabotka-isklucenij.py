@@ -25,8 +25,8 @@ def read_file(filename):  # добавить обработку FileNotFoundErro
         return s
     except FileNotFoundError as exc:
         return f'Файл {filename} не найден! {exc.args}'
-    except IOError as exс:
-        return f'Ошибка {exс}. Невозможно открыть файл {filename}'
+    except IOError as exc:
+        return f'Ошибка {exc}. Невозможно открыть файл {filename}'
     except Exception as exc:
         return f'Произошла непредвиденная ошибка! {exc}'
     finally:

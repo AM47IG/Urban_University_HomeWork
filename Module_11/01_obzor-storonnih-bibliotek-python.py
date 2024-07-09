@@ -11,7 +11,7 @@ from PIL import Image
 # правильных запросов и обработки ответа от сервера.
 # Возможностей много, как и в остальных представленных
 # библиотеках.
-print(f'{'requests':*^30}')
+print(f'{"requests":*^30}')
 response = requests.get('https://api.spoonacular.com/food/products/22347',
                         params={'apiKey': '92ff0441402543658ecf622434a7e5ef'})
 ingredient_list = response.json()['ingredientList']
@@ -24,7 +24,7 @@ print()
 # создавать, конвертировать, анализировать, составлять диаграммы и многое другое.
 # В данном примере прочитали данные из файла CSV, проанализировали,
 # узнали статистику и записали файл в таблицу Excel.
-print(f'{'pandas':*^30}')
+print(f'{"pandas":*^30}')
 students = pd.read_csv("StudentsPerformance.csv")
 # print(students.head())
 # print(students.tail(3))
@@ -43,7 +43,7 @@ plt.show()
 
 # С помощью библиотеки numpy производится эффективная работа с матрицами.
 # В примере ниже парой строчек создается две матрицы и операция над ними.
-print(f'{'numpy':*^30}')
+print(f'{"numpy":*^30}')
 a1 = np.arange(1, 26).reshape(5, 5)
 a2 = np.transpose(a1)
 print(a1)
