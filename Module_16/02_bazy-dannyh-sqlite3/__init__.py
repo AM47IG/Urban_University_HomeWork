@@ -8,14 +8,12 @@ SUBJECT = ['Python', 'PHP', 'C++', 'JavaScript']
 
 class University:
     def __init__(self, name):
-        self.count_students = 0
         self.name = name
         check_has_db_and_create(name)
         self.work_with_db = func_work_with_db(name)
 
     def add_student(self, name, age):
         self.work_with_db(f"INSERT INTO Students (name, age) VALUES ('{name}', '{age}')")
-        self.count_students += 1
 
     def add_grade(self, student_id, subject, grade):
         self.work_with_db(f"""INSERT INTO Grades (student_id, subject, grade)
