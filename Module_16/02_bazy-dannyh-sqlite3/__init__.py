@@ -22,6 +22,7 @@ class University:
     def get_students(self, subject=''):
         if subject:
             subject = f"AND subject = '{subject}'"
+
         result = self.work_with_db(f"""
         SELECT S.name, S.age, G.subject, G.grade 
         FROM Students as S, Grades as G
