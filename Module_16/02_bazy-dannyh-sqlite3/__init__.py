@@ -38,7 +38,7 @@ u1 = University('Urban')
 
 for name in FIRSTNAME:
     u1.add_student(name + ' ' + choice(LASTNAME), randint(20, 30))
-#
+
 for _ in range(2):
     for i in range(len(u1)):
         u1.add_grade(i + 1, choice(SUBJECT), round(randint(60, 100) / 20, 1))
