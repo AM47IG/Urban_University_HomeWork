@@ -32,7 +32,7 @@ def func_work_with_db(name):
                     result.append(el)
         connection.commit()
         connection.close()
-        return result
+        return result if result else None
     return wrapper
 
 
