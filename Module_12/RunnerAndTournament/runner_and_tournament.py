@@ -28,12 +28,15 @@ class Tournament:
     def start(self):
         finishers = {}
         place = 1
-        while self.participants:  # Исправлена логическая ошибка. У кого больше скорость, тот и первый.
+        while self.participants:
+            # Исправлена логическая ошибка. У кого больше скорость, тот и первый.
             participant = max(self.participants, key=lambda x: x.speed)
             finishers[place] = participant
             place += 1
             self.participants.remove(participant)
-            # for participant in self.participants:  # Не исправлена ошибка, здесь достаточно быть первым в списке и пройти заданую дистанцию.
+
+            # Не исправлена ошибка, здесь достаточно быть первым в списке и пройти заданную дистанцию.
+            # for participant in self.participants:
             #     participant.run()
             #     if participant.distance >= self.full_distance:
             #         finishers[place] = participant
