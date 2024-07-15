@@ -35,7 +35,8 @@ class Tournament:
             place += 1
             self.participants.remove(participant)
 
-            # Не исправлена ошибка, здесь достаточно быть первым в списке и пройти заданную дистанцию.
+            # Не исправлена ошибка, здесь достаточно быть первым в списке и пройти заданную дистанцию
+            # за одинаковое количество циклов с реальным победителем.
             # for participant in self.participants:
             #     participant.run()
             #     if participant.distance >= self.full_distance:
