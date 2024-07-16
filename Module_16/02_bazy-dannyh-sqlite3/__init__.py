@@ -40,7 +40,8 @@ for name in FIRSTNAME:
 
 for _ in range(2):
     for i in range(len(u1)):
-        u1.add_grade(i + 1, choice(SUBJECT), round(randint(60, 100) / 20, 1))
+        grade = randint(60, 100) / 20
+        u1.add_grade(i + 1, choice(SUBJECT), round(grade, 1))
 
 print(u1.get_students())
 print(u1.get_students('Python'))
