@@ -13,44 +13,51 @@ dp = Dispatcher(bot, storage=MemoryStorage())
 
 
 class UserState(StatesGroup):
-    address = State()
+    age = State()
+    growth = State()
+    weight = State()
 
 
-@dp.message_handler(text=['Привет'])
-async def all_message(message):
-    print("Мы получили сообщение!")
+@dp.message_handler(commands=["start"])
+async def start(message):
+    # print("Привет! Я бот помогающий твоему здоровью.")
+    await message.answer("Привет! Я бот помогающий твоему здоровью.")
 
 
-@dp.message_handler(text=["Urban"])
-async def urban_message(message):
-    print("Urban message")
-    await message.answer("Urban message")
+@dp.message_handler(text='Calories')
+async def set_age(message):
+    await message.answer("Введите свой возраст:")
+    await UserState.age.set()
 
 
-@dp.message_handler(commands='start')
-async def start_message(message):
-    print('Start message')
-    await message.answer('Рады видеть Вас в нашем Боте!')
+@dp.message_handler(state=UserState.age)
+async def set_growth(message, state):
+    await state.update_data(age=message.text)
+    await message.answer("Введите свой рост:")
+    await UserState.growth.set()
 
 
-@dp.message_handler(text='Заказать')
-async def buy(message):
-    await message.answer("Отправь нам свой адрес, пожалуйста")
-    await UserState.address.set()
+@dp.message_handler(state=UserState.growth)
+async def set_weight(message, state):
+    await state.update_data(growth=message.text)
+    await message.answer("Введите свой вес:")
+    await UserState.weight.set()
 
 
-@dp.message_handler(state=UserState.address)
-async def fsm_handler(message, state):
-    await state.update_data(first=message.text)
+@dp.message_handler(state=UserState.weight)
+async def send_calories(message, state):
+    await state.update_data(weight=message.text)
     data = await state.get_data()
-    await message.answer(f'Доставка будет отправлена по адресу {data["first"]}')
+    w, g, a = map(int, (data["weight"], data["growth"], data["age"]))
+    result = 10 * w + 6.25 * g - 5 * a + 5  # Для мужчин
+    await message.answer(f'Ваша норма калорий в сутки {result:.2f}')
     await state.finish()
 
 
 @dp.message_handler()
 async def all_message(message):
-    print('Мы получили сообщение!')
-    await message.answer(message.text)
+    # print("Введите команду /start, чтобы начать общение.")
+    await message.answer("Введите команду /start, чтобы начать общение.")
 
 
 if __name__ == "__main__":
