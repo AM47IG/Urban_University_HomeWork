@@ -1,10 +1,8 @@
+import logging
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher.filters.state import State, StatesGroup
-from aiogram.dispatcher import FSMContext
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-import asyncio
+import kb
 from config_reader import config
 
 api = config.bot_token.get_secret_value()
@@ -18,10 +16,28 @@ class UserState(StatesGroup):
     weight = State()
 
 
-@dp.message_handler(commands=["start"])
+@dp.message_handler(commands="start")
 async def start(message):
     # print("Привет! Я бот помогающий твоему здоровью.")
-    await message.answer("Привет! Я бот помогающий твоему здоровью.")
+    await message.answer("Привет! Я бот помогающий твоему здоровью.", reply_markup=kb.start_kb)
+
+
+@dp.message_handler(text='Рассчитать')
+async def main_menu(message):
+    await message.answer("Выберите опцию:", reply_markup=kb.inline_kb)
+
+
+@dp.callback_query_handler(text='formulas')
+async def get_formulas(call):
+    await call.message.answer("для мужчин: 10 х вес (кг) + 6,25 x рост (см) – 5 х возраст (г) + 5")
+    await call.answer()
+
+
+@dp.callback_query_handler(text='calories')
+async def set_age_inline(call):
+    await call.message.answer("Введите свой возраст:")
+    await UserState.age.set()
+    await call.answer()
 
 
 @dp.message_handler(text='Calories')
@@ -61,4 +77,9 @@ async def all_message(message):
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.DEBUG)
     executor.start_polling(dp, skip_updates=True)
+    # executor.start_polling(dp, allowed_updates=["message", "edited_channel_post", "callback_query", "edited_message",
+    #                                             "channel_post", "edited_channel_post", "inline", "chosen_inline",
+    #                                             "shipping_query", "pre_checkout_query", "poll", "poll_answer",
+    #                                             "my_chat_member", "chat_member", "chat_join_request", "errors", ])
