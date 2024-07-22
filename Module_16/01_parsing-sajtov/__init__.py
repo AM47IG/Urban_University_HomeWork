@@ -28,7 +28,7 @@ def write_cmc_top():
 
     # Создание необходимых коллекций для дальнейшей записи в файл
     list_of_names = driver.find_elements("xpath", "//table//p[@class = 'sc-71024e3e-0 ehyBa-d']")
-    list_of_mc = driver.find_elements("xpath", "//table//span[@class = 'sc-11478e5d-1 hwOFkt']")
+    list_of_mc = driver.find_elements("xpath", "//table//span[@class = 'sc-11478e5d-1 jfwGHx']")
     assert len(set(list_of_names)) == 100 and len(list_of_names) == 100, f'Считано не 100 строк!'
 
     list_of_names = [web_element.text.replace(' ', '_') for web_element in list_of_names]
