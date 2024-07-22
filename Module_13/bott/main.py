@@ -1,3 +1,5 @@
+import asyncio
+import time
 import logging
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
@@ -12,6 +14,7 @@ dp = Dispatcher(bot, storage=MemoryStorage())
 
 class UserState(StatesGroup):
     age = State()
+    age_incorrect = State()
     growth = State()
     weight = State()
 
@@ -48,26 +51,35 @@ async def set_age(message):
 
 @dp.message_handler(state=UserState.age)
 async def set_growth(message, state):
-    await state.update_data(age=message.text)
-    await message.answer("Введите свой рост:")
-    await UserState.growth.set()
+    if not message.text.isdigit():
+        await message.answer("Введите свой возраст ЦИФРАМИ:")
+    else:
+        await state.update_data(age=message.text)
+        await message.answer("Введите свой рост:")
+        await UserState.growth.set()
 
 
 @dp.message_handler(state=UserState.growth)
 async def set_weight(message, state):
-    await state.update_data(growth=message.text)
-    await message.answer("Введите свой вес:")
-    await UserState.weight.set()
+    if not message.text.isdigit():
+        await message.answer("Введите свой рост ЦИФРАМИ:")
+    else:
+        await state.update_data(growth=message.text)
+        await message.answer("Введите свой вес:")
+        await UserState.weight.set()
 
 
 @dp.message_handler(state=UserState.weight)
 async def send_calories(message, state):
-    await state.update_data(weight=message.text)
-    data = await state.get_data()
-    w, g, a = map(int, (data["weight"], data["growth"], data["age"]))
-    result = 10 * w + 6.25 * g - 5 * a + 5  # Для мужчин
-    await message.answer(f'Ваша норма калорий в сутки {result:.2f}')
-    await state.finish()
+    if not message.text.isdigit():
+        await message.answer("Введите свой вес ЦИФРАМИ:")
+    else:
+        await state.update_data(weight=message.text)
+        data = await state.get_data()
+        w, g, a = map(int, (data["weight"], data["growth"], data["age"]))
+        result = 10 * w + 6.25 * g - 5 * a + 5  # Для мужчин
+        await message.answer(f'Ваша норма калорий в сутки {result:.2f}')
+        await state.finish()
 
 
 @dp.message_handler()
@@ -77,7 +89,7 @@ async def all_message(message):
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(level=logging.INFO)
     executor.start_polling(dp, skip_updates=True)
     # executor.start_polling(dp, allowed_updates=["message", "edited_channel_post", "callback_query", "edited_message",
     #                                             "channel_post", "edited_channel_post", "inline", "chosen_inline",
