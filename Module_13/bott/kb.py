@@ -18,3 +18,11 @@ inline_kb = InlineKeyboardMarkup(
          InlineKeyboardButton(callback_data="formulas", text="Формулы расчёта", )],
     ]
 )
+
+
+sex_kb = ReplyKeyboardMarkup(
+    keyboard=[
+        [KeyboardButton(text="Мужчина"),
+         KeyboardButton(text="Женщина")],
+    ], resize_keyboard=True
+)

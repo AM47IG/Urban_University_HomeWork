@@ -13,6 +13,7 @@ dp = Dispatcher(bot, storage=MemoryStorage())
 
 
 class UserState(StatesGroup):
+    sex = State()
     age = State()
     age_incorrect = State()
     growth = State()
@@ -32,21 +33,34 @@ async def main_menu(message):
 
 @dp.callback_query_handler(text='formulas')
 async def get_formulas(call):
-    await call.message.answer("для мужчин: 10 х вес (кг) + 6,25 x рост (см) – 5 х возраст (г) + 5")
+    await call.message.answer(
+        "для мужчин: 10 х вес (кг) + 6,25 x рост (см) – 5 х возраст (г) + 5\n"
+        "для женщин: 10 x вес (кг) + 6,25 x рост (см) – 5 x возраст (г) – 161"
+    )
     await call.answer()
 
 
 @dp.callback_query_handler(text='calories')
-async def set_age_inline(call):
-    await call.message.answer("Введите свой возраст:")
-    await UserState.age.set()
+async def set_sex_inline(call):
+    await call.message.answer("Выберите свой пол:", reply_markup=kb.sex_kb)
     await call.answer()
+    await UserState.sex.set()
 
 
-@dp.message_handler(text='Calories')
-async def set_age(message):
-    await message.answer("Введите свой возраст:")
-    await UserState.age.set()
+@dp.message_handler(text='calories')
+async def set_sex(message):
+    await message.answer("Выберите свой пол:", reply_markup=kb.sex_kb)
+    await UserState.sex.set()
+
+
+@dp.message_handler(state=UserState.sex)
+async def set_age(message, state):
+    if message.text not in ["Мужчина", "Женщина"]:
+        await message.answer("Выберите свой пол КНОПКАМИ:", reply_markup=kb.sex_kb)
+    else:
+        await state.update_data(sex=message.text)
+        await message.answer("Введите свой возраст:", reply_markup=types.ReplyKeyboardRemove())
+        await UserState.age.set()
 
 
 @dp.message_handler(state=UserState.age)
@@ -76,9 +90,13 @@ async def send_calories(message, state):
     else:
         await state.update_data(weight=message.text)
         data = await state.get_data()
+        s = data['sex']
         w, g, a = map(int, (data["weight"], data["growth"], data["age"]))
-        result = 10 * w + 6.25 * g - 5 * a + 5  # Для мужчин
-        await message.answer(f'Ваша норма калорий в сутки {result:.2f}')
+        if s == 'Мужчина':
+            result = 10 * w + 6.25 * g - 5 * a + 5  # Для мужчин
+        else:
+            result = 10 * w + 6.25 * g - 5 * a - 161  # Для женщин
+        await message.answer(f'Ваша норма калорий в сутки {result:.2f}', reply_markup=kb.start_kb)
         await state.finish()
 
 
@@ -90,8 +108,8 @@ async def all_message(message):
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
-    executor.start_polling(dp, skip_updates=True)
-    # executor.start_polling(dp, allowed_updates=["message", "edited_channel_post", "callback_query", "edited_message",
-    #                                             "channel_post", "edited_channel_post", "inline", "chosen_inline",
-    #                                             "shipping_query", "pre_checkout_query", "poll", "poll_answer",
-    #                                             "my_chat_member", "chat_member", "chat_join_request", "errors", ])
+    # executor.start_polling(dp, skip_updates=True)
+    executor.start_polling(dp, allowed_updates=["message", "edited_channel_post", "callback_query", "edited_message",
+                                                "channel_post", "edited_channel_post", "inline", "chosen_inline",
+                                                "shipping_query", "pre_checkout_query", "poll", "poll_answer",
+                                                "my_chat_member", "chat_member", "chat_join_request", "errors", ])
