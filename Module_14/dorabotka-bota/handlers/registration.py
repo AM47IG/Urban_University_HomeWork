@@ -18,19 +18,23 @@ async def sing_up(message):
 
 
 async def set_username(message, state):
-    if is_included(message.text):
+    username = message.text
+    if not username.isascii():
+        await message.answer("Введите имя пользователя (ТОЛЬКО ЛАТИНСКИЙ АЛФАВИТ):")
+    elif is_included(username):
         await message.answer("Пользователь уже существует, введите другое имя:")
     else:
-        await state.update_data(username=message.text)
+        await state.update_data(username=username)
         await message.answer("Введите свой email:")
         await RegistrationState.email.set()
 
 
 async def set_email(message, state):
-    if not is_correct_email(message.text):
+    email = message.text
+    if not email.isascii() or not is_correct_email(email):
         await message.answer("Некорректный email, попробуйте ещё раз:")
     else:
-        await state.update_data(email=message.text)
+        await state.update_data(email=email)
         await message.answer("Введите свой возраст:")
         await RegistrationState.age.set()
 

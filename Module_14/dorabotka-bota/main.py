@@ -15,6 +15,7 @@ dp.message_handler(text='Рассчитать')(h.regular.main_menu)
 dp.callback_query_handler(text='formulas')(h.regular.get_formulas)
 dp.message_handler(text='Купить')(h.regular.get_buying_list)
 dp.callback_query_handler(text='product_buying')(h.regular.send_confirm_message)
+dp.message_handler(commands='clear_all')(h.regular.clear_all)
 
 dp.callback_query_handler(text='calories')(h.calories.calories_inline)
 dp.message_handler(text='calories')(h.calories.calories)
