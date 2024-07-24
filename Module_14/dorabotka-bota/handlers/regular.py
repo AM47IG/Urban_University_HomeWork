@@ -39,20 +39,17 @@ async def send_confirm_message(call):
 
 async def clear_all(message):
     from main import bot
-    count = 0
+    count = 1
     message_id = message.message_id
     user_id = message.from_user.id
     while count < 20:
         try:
-            await asyncio.sleep(1)
             await bot.delete_message(user_id, message_id)
             message_id -= 1
-            count = 0
+            count = 1
         except MessageToDeleteNotFound:
-            print(f"Нет сообщения {message_id}, ошибка №{count}")
             message_id -= 1
             count += 1
-    await message.answer("Все сообщения удалены!\nНачнем с чистого листа :)", reply_markup=kb.start_kb)
 
 
 async def all_message(message):
