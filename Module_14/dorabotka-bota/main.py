@@ -5,7 +5,7 @@ from aiogram import Bot, Dispatcher, executor, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.types import InputMediaPhoto
-
+import crud_functions
 import kb
 from config_reader import config
 
@@ -102,9 +102,10 @@ async def send_calories(message, state):
 
 @dp.message_handler(text='Купить')
 async def get_buying_list(message):
-    for i in range(1, 5):
-        with open(f'image/image{i}.png', "rb") as img:
-            text = f"Название: Продукт {i} | Описание: описание {i} | Цена: {i * 100}"
+    products = crud_functions.get_all_products()
+    for id_product, title, description, price in products:
+        with open(f'image/image{id_product}.png', "rb") as img:
+            text = f"Название: {title} | Описание: {description} | Цена: {price}"
             await message.answer_photo(img, text)
     await message.answer('Выберите продукт для покупки:', reply_markup=kb.product_inline_kb)
 
