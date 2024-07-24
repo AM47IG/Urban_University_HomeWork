@@ -1,3 +1,4 @@
+import re
 import sqlite3
 
 
@@ -13,8 +14,38 @@ def initiate_db():
         price INTEGER NOT NULL)
         '''
     )
+    cursor.execute(
+        '''
+        CREATE TABLE IF NOT EXISTS Users(
+        id INTEGER PRIMARY KEY,
+        username TEXT NOT NULL,
+        email TEXT NOT NULL,
+        age INTEGER NOT NULL,
+        balance INTEGER NOT NULL)
+        '''
+    )
     connection.commit()
     connection.close()
+
+
+def add_user(username, email, age):
+    connection = sqlite3.connect('telegram_db.db')
+    cursor = connection.cursor()
+    cursor.execute(
+        'INSERT INTO Users (username, email, age, balance) VALUES (?, ?, ?, 1000)',
+        (username, email, age)
+    )
+    connection.commit()
+    connection.close()
+
+
+def is_included(username):
+    connection = sqlite3.connect('telegram_db.db')
+    cursor = connection.cursor()
+    cursor.execute('SELECT id FROM Users WHERE username = ?', (username, ))
+    result = bool(cursor.fetchone())
+    connection.close()
+    return result
 
 
 def get_all_products():
@@ -36,3 +67,13 @@ def post_products():
         )
     connection.commit()
     connection.close()
+
+
+def is_correct_email(email):
+    return bool(re.fullmatch(r'([\w]+)@([\w]+).([\w]{2,4})', email))
+
+if __name__ == '__main__':
+    initiate_db()
+    add_user('Amazig', 'gforce@mail.com', 35)
+    print(is_included('Павел'))
+    print(is_correct_email('adwadw@mail.ru'))
