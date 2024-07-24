@@ -49,8 +49,8 @@ async def clear_all(message):
             message_id -= 1
             count = 0
         except MessageToDeleteNotFound:
-            message_id -= 1
             print(f"Нет сообщения {message_id}, ошибка №{count}")
+            message_id -= 1
             count += 1
     await message.answer("Все сообщения удалены!\nНачнем с чистого листа :)", reply_markup=kb.start_kb)
 
