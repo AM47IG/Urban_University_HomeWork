@@ -74,7 +74,4 @@ def is_correct_email(email):
 
 
 if __name__ == '__main__':
-    initiate_db()
-    add_user('Amazig', 'gforce@mail.com', 35)
-    print(is_included('Павел'))
-    print(is_correct_email('adwadw@mail.ru'))
+    pass
