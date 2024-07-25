@@ -44,5 +44,5 @@ async def delete_user(user_id: int) -> User:
     try:
         index = list(map(lambda x: x.id, users)).index(user_id)
         return users.pop(index)
-    except (IndexError, ValueError):
+    except ValueError:
         raise HTTPException(status_code=404, detail="User was not found")
