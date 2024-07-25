@@ -19,7 +19,7 @@ dp.message_handler(commands='clear_all')(h.regular.clear_all)
 
 dp.callback_query_handler(text='calories')(h.calories.calories_inline)
 dp.message_handler(text='calories')(h.calories.calories)
-dp.message_handler(state=h.calories.UserState.sex)(h.calories.set_sex)
+dp.callback_query_handler(state=h.calories.UserState.sex)(h.calories.set_sex)
 dp.message_handler(state=h.calories.UserState.age)(h.calories.set_age)
 dp.message_handler(state=h.calories.UserState.growth)(h.calories.set_growth)
 dp.message_handler(state=h.calories.UserState.weight)(h.calories.set_weight)

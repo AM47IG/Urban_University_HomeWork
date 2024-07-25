@@ -70,7 +70,7 @@ def post_products():
 
 
 def is_correct_email(email):
-    return bool(re.fullmatch(r'([\w]+)@([\w]+)\.([\w]{2,4})', email))
+    return bool(re.fullmatch(r'([\x00-\x7F]+)@([\x00-\x7F]+)\.([\x00-\x7F]{2,4})\Z', email))
 
 
 if __name__ == '__main__':

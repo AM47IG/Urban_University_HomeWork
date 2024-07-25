@@ -20,11 +20,11 @@ inline_kb = InlineKeyboardMarkup(
 )
 
 
-sex_kb = ReplyKeyboardMarkup(
-    keyboard=[
-        [KeyboardButton(text="Мужчина"),
-         KeyboardButton(text="Женщина")],
-    ], resize_keyboard=True
+sex_kb = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [InlineKeyboardButton(callback_data="Мужчина", text="Мужчина"),
+         InlineKeyboardButton(callback_data="Женщина", text="Женщина")],
+    ],
 )
 
 

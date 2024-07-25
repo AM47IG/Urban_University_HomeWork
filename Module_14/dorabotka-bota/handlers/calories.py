@@ -11,22 +11,26 @@ class UserState(StatesGroup):
 
 
 async def calories_inline(call):
-    await call.message.answer("Выберите свой пол:", reply_markup=kb.sex_kb)
+    await call.message.answer("Выберите свой пол:", reply_markup=types.ReplyKeyboardRemove())
+    await call.message.answer(text='...', reply_markup=kb.sex_kb)
     await call.answer()
     await UserState.sex.set()
 
 
 async def calories(message):
-    await message.answer("Выберите свой пол:", reply_markup=kb.sex_kb)
+    await message.answer("Выберите свой пол:", reply_markup=types.ReplyKeyboardRemove())
+    await message.answer(text='...', reply_markup=kb.sex_kb)
     await UserState.sex.set()
 
 
-async def set_sex(message, state):
-    if message.text not in ["Мужчина", "Женщина"]:
-        await message.answer("Выберите свой пол КНОПКАМИ:", reply_markup=kb.sex_kb)
+async def set_sex(call, state):
+    await call.answer()
+    if call.data not in ["Мужчина", "Женщина"]:
+        await call.message.answer("Выберите свой пол КНОПКАМИ:", reply_markup=kb.sex_kb)
     else:
-        await state.update_data(sex=message.text)
-        await message.answer("Введите свой возраст:", reply_markup=types.ReplyKeyboardRemove())
+        await call.message.edit_text(f"Вы {call.data}")
+        await state.update_data(sex=call.message.text)
+        await call.message.answer("Введите свой возраст:", reply_markup=types.ReplyKeyboardRemove())
         await UserState.age.set()
 
 
