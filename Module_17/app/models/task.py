@@ -10,8 +10,8 @@ class Task(Base):
     title = Column(String)
     content = Column(String)
     priority = Column(Integer, default=0)
-    completed = Column(Boolean)
-    user_id = Column(Integer, ForeignKey('users.id'), nullable=False, index=True)
+    completed = Column(Boolean, default=False)
+    user_id = Column(Integer, ForeignKey('users.id', ondelete="CASCADE"), nullable=False, index=True)
     slug = Column(String, unique=True, index=True)
 
     user = relationship("User", backref='task')
