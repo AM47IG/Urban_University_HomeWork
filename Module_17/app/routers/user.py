@@ -100,7 +100,7 @@ async def delete_user(db: Annotated[Session, Depends(get_db)], user_id: int):
         )
 
     db.execute(delete(User).where(User.id == user_id))
-    db.execute(delete(Task).where(Task.user_id == user_id))
+    # db.execute(delete(Task).where(Task.user_id == user_id))  # Настроил модели БД, чтобы само удалялось.
     db.commit()
     return {
         'status_code': status.HTTP_200_OK,

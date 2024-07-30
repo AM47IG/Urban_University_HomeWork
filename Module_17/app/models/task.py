@@ -5,7 +5,7 @@ from sqlalchemy.orm import relationship
 
 class Task(Base):
     __tablename__ = "tasks"
-    __table_args__ = {"keep_existing": True}
+    __table_args__ = {"extend_existing": True}
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String)
     content = Column(String)
@@ -14,7 +14,7 @@ class Task(Base):
     user_id = Column(Integer, ForeignKey('users.id', ondelete="CASCADE"), nullable=False, index=True)
     slug = Column(String, unique=True, index=True)
 
-    user = relationship("User", backref='task')
+    user = relationship("User", backref='tasks')
 
 
 # from sqlalchemy.schema import CreateTable
